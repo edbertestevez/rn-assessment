@@ -1,5 +1,7 @@
+export type CustomerId = number;
+
 export type Customer = {
-  customerId: number;
+  customerId: CustomerId;
   customerName: string;
   email: string;
   phone: string;

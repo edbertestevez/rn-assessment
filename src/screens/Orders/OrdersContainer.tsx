@@ -6,7 +6,7 @@ import { OrdersNavigationProps } from '../../navigation/AppNavigator';
 import Routes from '../../navigation/routes';
 import customerStore from '../../stores/CustomerStore.tsx';
 import orderStore from '../../stores/OrderStore.tsx';
-import { Customer } from '../../types/Customer.ts';
+import { Customer, CustomerId } from '../../types/Customer.ts';
 import { Order, OrderId, OrderWithCustomerInfo } from '../../types/Order';
 
 const formatOrders = (orders: Order[] = [], customers: Customer[] = []) => {
@@ -31,8 +31,8 @@ const OrdersContainer = ({
   navigation,
 }: OrdersNavigationProps): React.JSX.Element => {
   const handleItemPress = useCallback(
-    (orderId: OrderId) =>
-      navigation.navigate(Routes.ORDER_DETAILS, { orderId }),
+    (orderId: OrderId, customerId: CustomerId) =>
+      navigation.navigate(Routes.ORDER_DETAILS, { orderId, customerId }),
     [navigation],
   );
 

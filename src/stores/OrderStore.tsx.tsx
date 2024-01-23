@@ -1,7 +1,7 @@
 import { observable, action, makeObservable, runInAction } from 'mobx';
 
 import { OrdersAPI } from '../services/api/orders';
-import { Order } from '../types/Order';
+import { Order, OrderId } from '../types/Order';
 
 class OrderStore {
   orders: Order[] = [];
@@ -10,6 +10,7 @@ class OrderStore {
     makeObservable(this, {
       orders: observable,
       getOrders: action,
+      getOrderById: action,
     });
   }
 
@@ -23,6 +24,10 @@ class OrderStore {
     } catch (err) {
       console.error('Error fetching orders: ', err);
     }
+  }
+
+  getOrderById(id: OrderId) {
+    return this.orders.find((order) => order.orderId === id);
   }
 }
 

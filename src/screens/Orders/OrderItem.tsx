@@ -2,11 +2,12 @@ import React, { useCallback, useMemo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 
+import { CustomerId } from '../../types/Customer';
 import { OrderId, OrderStatus, OrderWithCustomerInfo } from '../../types/Order';
 
 interface IOrderItem {
   item: OrderWithCustomerInfo;
-  handleItemPress: (orderId: OrderId) => void;
+  handleItemPress: (orderId: OrderId, customerId: CustomerId) => void;
 }
 
 const OrderItem = ({
@@ -14,8 +15,8 @@ const OrderItem = ({
   handleItemPress,
 }: IOrderItem): React.JSX.Element => {
   const onPress = useCallback(() => {
-    handleItemPress(orderId);
-  }, [handleItemPress, orderId]);
+    handleItemPress(orderId, customerId);
+  }, [handleItemPress, orderId, customerId]);
 
   const isOpen = useMemo(() => status === OrderStatus.OPEN, [status]);
 
@@ -37,7 +38,7 @@ const OrderItem = ({
 const Card = styled(TouchableOpacity)`
   background-color: #fff;
   border-radius: 8px;
-  margin: 8px;
+  margin: 4px 8px;
   padding: 16px;
   shadow-opacity: 0.25;
   shadow-radius: 4px;

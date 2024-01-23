@@ -3,18 +3,22 @@ import { Text } from 'react-native';
 
 import OrderDetails from './OrderDetails';
 import { OrderDetailsNavigationProps } from '../../navigation/AppNavigator';
+import customerStore from '../../stores/CustomerStore.tsx';
+import orderStore from '../../stores/OrderStore.tsx';
 
 const OrderDetailsContainer = ({
   route,
 }: OrderDetailsNavigationProps): React.JSX.Element => {
-  const { orderId } = route.params;
+  const { orderId, customerId } = route.params;
 
-  if (!orderId) {
+  const orderData = orderStore.getOrderById(orderId);
+  const customerData = customerStore.getCustomerById(customerId);
+
+  if (!orderData || !customerData) {
     return <Text>Invalid request</Text>;
   }
 
-  // TODO: Handle data state first before handling this component
-  return <OrderDetails />;
+  return <OrderDetails order={orderData} customer={customerData} />;
 };
 
 export default OrderDetailsContainer;
