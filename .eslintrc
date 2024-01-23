@@ -1,0 +1,52 @@
+{
+  "root": true,
+  "extends": [
+    "@react-native",
+    "prettier",
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": ["prettier", "import"],
+  "rules": {
+    "prettier/prettier": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+
+    // NOTE: Disable during development if needed to test
+    // General best practices
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-alert": "error",
+    "no-debugger": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+
+    // Styles preferences
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+
+    // Imports
+    "import/no-unresolved": "error",
+    "import/no-named-as-default": "off",
+    "import/namespace": "off",
+    "react/no-unescaped-entities": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["sibling", "parent"],
+          "index",
+          "unknown"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}
