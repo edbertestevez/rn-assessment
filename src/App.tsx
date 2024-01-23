@@ -1,34 +1,23 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  useColorScheme,
-} from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+import NavigationWrapper from './navigation/NavigationWrapper';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+const App = (): React.JSX.Element => {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}
-      >
-        <Text>Restaurant Orders Portal</Text>
-      </ScrollView>
+    <SafeAreaView>
+      <View style={styles.body}>
+        <NavigationWrapper />
+      </View>
     </SafeAreaView>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  body: {
+    display: 'flex',
+    height: '100%',
+  },
+});
 
 export default App;
