@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 
-import { Order } from '../../types/Order';
+import { Order, OrderId } from '../../types/Order';
 
 interface IOrderItem {
   item: Order;
+  handleItemPress: (orderId: OrderId) => void;
 }
 
 const OrderItem = ({
   item: { customerId, orderId, status },
+  handleItemPress,
 }: IOrderItem): React.JSX.Element => {
+  const onPress = useCallback(() => {
+    handleItemPress(orderId);
+  }, [handleItemPress, orderId]);
+
   return (
-    <Card activeOpacity={0.6}>
+    <Card activeOpacity={0.6} onPress={onPress}>
       <Body>
         <OrderIcon>
-          <OrderId>{`# ${orderId}`}</OrderId>
+          <OrderIdentifier>{`# ${orderId}`}</OrderIdentifier>
         </OrderIcon>
         <Details>
           <Text>{`Customer: ${customerId}`}</Text>
@@ -52,7 +58,7 @@ const OrderIcon = styled(View)`
   justify-content: center;
 `;
 
-const OrderId = styled(Text)`
+const OrderIdentifier = styled(Text)`
   ${({ theme }) => `
     color:${theme.color.labelInvert};
     font-size: ${theme.fontSize.medium};

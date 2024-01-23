@@ -10,8 +10,10 @@ export enum OrderStatus {
   CLOSE = 'close',
 }
 
+export type OrderId = number;
+
 export type Order = {
-  orderId: number;
+  orderId: OrderId;
   customerId: number;
   items: OrderItem[];
   totalPrice: number;
