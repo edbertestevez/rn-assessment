@@ -1,12 +1,18 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { FlatList } from 'react-native';
 
+import OrderItem from './OrderItem';
 import ScreenView from '../../components/ScreenView';
+import { Order } from '../../types/Order';
 
-const Orders = (): React.JSX.Element => {
+type OrdersProps = {
+  data: Order[];
+};
+
+const Orders = ({ data }: OrdersProps): React.JSX.Element => {
   return (
     <ScreenView>
-      <Text>Orders Screen</Text>
+      <FlatList<Order> data={data} renderItem={OrderItem} />
     </ScreenView>
   );
 };
