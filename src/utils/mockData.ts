@@ -58,6 +58,23 @@ export const mockOrders: Order[] = [
     status: OrderStatus.OPEN,
     timestamp: '2023-09-20T13:15:20Z',
   },
+  // Invalid customer
+  {
+    orderId: 3,
+    customerId: 999,
+    items: [
+      {
+        itemId: 104,
+        itemName: 'Pizza',
+        quantity: 1,
+        price: 12.99,
+      },
+    ],
+    totalPrice: 24.47,
+    taxFree: true,
+    status: OrderStatus.OPEN,
+    timestamp: '2023-09-20T13:15:20Z',
+  },
 ];
 
 export const mockCustomers: Customer[] = [

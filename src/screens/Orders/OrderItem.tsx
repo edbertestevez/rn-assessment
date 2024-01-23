@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 
+import TestIds from '../../testUtils/testIds';
 import { CustomerId } from '../../types/Customer';
 import { OrderId, OrderStatus, OrderWithCustomerInfo } from '../../types/Order';
 
@@ -21,7 +22,7 @@ const OrderItem = ({
   const isOpen = useMemo(() => status === OrderStatus.OPEN, [status]);
 
   return (
-    <Card activeOpacity={0.6} onPress={onPress}>
+    <Card activeOpacity={0.6} onPress={onPress} testID={TestIds.ORDER_ITEMS}>
       <Body>
         <OrderIcon>
           <OrderIdentifier>{`# ${orderId}`}</OrderIdentifier>

@@ -1,6 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { RenderOptions, render } from '@testing-library/react-native';
 import React, { ReactElement } from 'react';
+import { ThemeProvider } from 'styled-components';
+
+import { appTheme } from '../theme';
 
 // Make use of this testing library when building unit tests
 const AppProviders = ({
@@ -8,7 +11,11 @@ const AppProviders = ({
 }: {
   children: React.ReactNode;
 }): React.JSX.Element => {
-  return <NavigationContainer>{children}</NavigationContainer>;
+  return (
+    <ThemeProvider theme={appTheme}>
+      <NavigationContainer>{children}</NavigationContainer>
+    </ThemeProvider>
+  );
 };
 
 const renderWithContext = (
