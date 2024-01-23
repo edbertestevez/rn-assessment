@@ -8,14 +8,19 @@ interface IOrdersAPI {
   getCustomers: () => Promise<Customer[]>;
 }
 
+type GetOrdersResponseData = Order[];
+type GetCustomersResponseData = { customers: Customer[] };
+
 export const OrdersAPI: IOrdersAPI = {
   getOrders: async () => {
-    const response = await api.get<Order[]>(endpoints.getOrders);
+    const response = await api.get<GetOrdersResponseData>(endpoints.getOrders);
     return response.data;
   },
   getCustomers: async () => {
-    const response = await api.get<Customer[]>(endpoints.getCustomers);
-    return response.data;
+    const response = await api.get<GetCustomersResponseData>(
+      endpoints.getCustomers,
+    );
+    return response.data.customers;
   },
   // Add other orders api here
 };

@@ -1,3 +1,5 @@
+import { Customer } from './Customer';
+
 export type OrderItem = {
   itemId: number;
   itemName: string;
@@ -21,3 +23,5 @@ export type Order = {
   status: OrderStatus;
   timestamp: string;
 };
+
+export type OrderWithCustomerInfo = Order & Pick<Customer, 'customerName'>;

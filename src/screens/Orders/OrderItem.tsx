@@ -1,21 +1,23 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 
-import { Order, OrderId } from '../../types/Order';
+import { OrderId, OrderStatus, OrderWithCustomerInfo } from '../../types/Order';
 
 interface IOrderItem {
-  item: Order;
+  item: OrderWithCustomerInfo;
   handleItemPress: (orderId: OrderId) => void;
 }
 
 const OrderItem = ({
-  item: { customerId, orderId, status },
+  item: { orderId, customerName, customerId, status },
   handleItemPress,
 }: IOrderItem): React.JSX.Element => {
   const onPress = useCallback(() => {
     handleItemPress(orderId);
   }, [handleItemPress, orderId]);
+
+  const isOpen = useMemo(() => status === OrderStatus.OPEN, [status]);
 
   return (
     <Card activeOpacity={0.6} onPress={onPress}>
@@ -24,8 +26,8 @@ const OrderItem = ({
           <OrderIdentifier>{`# ${orderId}`}</OrderIdentifier>
         </OrderIcon>
         <Details>
-          <Text>{`Customer: ${customerId}`}</Text>
-          <Text>{status.toUpperCase()}</Text>
+          <Text>{`${customerName} (${customerId})`}</Text>
+          <Status isOpen={isOpen}>{status.toUpperCase()}</Status>
         </Details>
       </Body>
     </Card>
@@ -67,6 +69,10 @@ const OrderIdentifier = styled(Text)`
 
 const Details = styled(View)`
   gap: 4px;
+`;
+
+const Status = styled(Text)<{ isOpen: boolean }>`
+  color: ${({ isOpen }) => (isOpen ? 'green' : 'red')};
 `;
 
 export default OrderItem;

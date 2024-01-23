@@ -3,18 +3,18 @@ import { FlatList } from 'react-native';
 
 import OrderItem from './OrderItem';
 import ScreenView from '../../components/ScreenView';
-import { Order, OrderId } from '../../types/Order';
+import { OrderId, OrderWithCustomerInfo } from '../../types/Order';
 
 type OrdersProps = {
-  data: Order[];
+  list: OrderWithCustomerInfo[];
   handleItemPress: (orderId: OrderId) => void;
 };
 
-const Orders = ({ data, handleItemPress }: OrdersProps): React.JSX.Element => {
+const Orders = ({ list, handleItemPress }: OrdersProps): React.JSX.Element => {
   return (
     <ScreenView>
-      <FlatList<Order>
-        data={data}
+      <FlatList<OrderWithCustomerInfo>
+        data={list}
         renderItem={(item) => (
           <OrderItem {...item} handleItemPress={handleItemPress} />
         )}

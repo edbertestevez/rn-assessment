@@ -1,32 +1,44 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback } from 'react';
 
 import Orders from './Orders';
 import { OrdersNavigationProps } from '../../navigation/AppNavigator';
 import Routes from '../../navigation/routes';
-import { OrdersAPI } from '../../services/api/orders';
-import { Order, OrderId } from '../../types/Order';
+import customerStore from '../../stores/CustomerStore.tsx';
+import orderStore from '../../stores/OrderStore.tsx';
+import { Customer } from '../../types/Customer.ts';
+import { Order, OrderId, OrderWithCustomerInfo } from '../../types/Order';
+
+const formatOrders = (orders: Order[] = [], customers: Customer[] = []) => {
+  const formattedData = orders.reduce(
+    (acc: OrderWithCustomerInfo[], currOrder: Order) => {
+      const customer = customers.find(
+        (currCustomer) => currCustomer.customerId === currOrder.customerId,
+      );
+
+      return acc.concat({
+        ...currOrder,
+        customerName: customer?.customerName ?? 'Unknown',
+      });
+    },
+    [],
+  );
+
+  return formattedData;
+};
 
 const OrdersContainer = ({
   navigation,
 }: OrdersNavigationProps): React.JSX.Element => {
-  const [data, setData] = useState<Order[]>([]);
-
-  const getAllOrders = useCallback(async () => {
-    const response = await OrdersAPI.getOrders();
-    setData(response);
-  }, []);
-
   const handleItemPress = useCallback(
     (orderId: OrderId) =>
       navigation.navigate(Routes.ORDER_DETAILS, { orderId }),
     [navigation],
   );
 
-  useEffect(() => {
-    getAllOrders();
-  }, [getAllOrders]);
+  const ordersList = formatOrders(orderStore.orders, customerStore.customers);
 
-  return <Orders data={data} handleItemPress={handleItemPress} />;
+  return <Orders list={ordersList} handleItemPress={handleItemPress} />;
 };
 
-export default OrdersContainer;
+export default observer(OrdersContainer);
