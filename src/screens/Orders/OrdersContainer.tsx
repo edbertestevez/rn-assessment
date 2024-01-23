@@ -2,30 +2,13 @@ import { observer } from 'mobx-react-lite';
 import React, { useCallback } from 'react';
 
 import Orders from './Orders';
+import { formatOrdersWithCustomerInfo } from '../../helpers/format.ts';
 import { OrdersNavigationProps } from '../../navigation/AppNavigator';
 import Routes from '../../navigation/routes';
 import customerStore from '../../stores/CustomerStore.tsx';
 import orderStore from '../../stores/OrderStore.tsx';
-import { Customer, CustomerId } from '../../types/Customer.ts';
-import { Order, OrderId, OrderWithCustomerInfo } from '../../types/Order';
-
-const formatOrders = (orders: Order[] = [], customers: Customer[] = []) => {
-  const formattedData = orders.reduce(
-    (acc: OrderWithCustomerInfo[], currOrder: Order) => {
-      const customer = customers.find(
-        (currCustomer) => currCustomer.customerId === currOrder.customerId,
-      );
-
-      return acc.concat({
-        ...currOrder,
-        customerName: customer?.customerName ?? 'Unknown',
-      });
-    },
-    [],
-  );
-
-  return formattedData;
-};
+import { CustomerId } from '../../types/Customer.ts';
+import { OrderId } from '../../types/Order';
 
 const OrdersContainer = ({
   navigation,
@@ -36,7 +19,10 @@ const OrdersContainer = ({
     [navigation],
   );
 
-  const ordersList = formatOrders(orderStore.orders, customerStore.customers);
+  const ordersList = formatOrdersWithCustomerInfo(
+    orderStore.orders,
+    customerStore.customers,
+  );
 
   return <Orders list={ordersList} handleItemPress={handleItemPress} />;
 };

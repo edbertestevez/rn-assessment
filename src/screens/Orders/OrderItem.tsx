@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { CustomerId } from '../../types/Customer';
 import { OrderId, OrderStatus, OrderWithCustomerInfo } from '../../types/Order';
 
-interface IOrderItem {
+interface OrderItemProps {
   item: OrderWithCustomerInfo;
   handleItemPress: (orderId: OrderId, customerId: CustomerId) => void;
 }
@@ -13,7 +13,7 @@ interface IOrderItem {
 const OrderItem = ({
   item: { orderId, customerName, customerId, status },
   handleItemPress,
-}: IOrderItem): React.JSX.Element => {
+}: OrderItemProps): React.JSX.Element => {
   const onPress = useCallback(() => {
     handleItemPress(orderId, customerId);
   }, [handleItemPress, orderId, customerId]);

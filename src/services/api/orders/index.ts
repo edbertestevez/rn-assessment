@@ -3,7 +3,7 @@ import endpoints from './endpoints';
 import { Customer } from '../../../types/Customer';
 import { Order } from '../../../types/Order';
 
-interface IOrdersAPI {
+interface OrdersAPIService {
   getOrders: () => Promise<Order[]>;
   getCustomers: () => Promise<Customer[]>;
 }
@@ -11,7 +11,7 @@ interface IOrdersAPI {
 type GetOrdersResponseData = Order[];
 type GetCustomersResponseData = { customers: Customer[] };
 
-export const OrdersAPI: IOrdersAPI = {
+export const OrdersAPI: OrdersAPIService = {
   getOrders: async () => {
     const response = await api.get<GetOrdersResponseData>(endpoints.getOrders);
     return response.data;

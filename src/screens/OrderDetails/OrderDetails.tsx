@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import styled from 'styled-components';
 
+import OrderDetailsItem from './OrderDetailsItem';
 import ScreenView from '../../components/ScreenView';
 import { Customer } from '../../types/Customer';
 import { Order } from '../../types/Order';
-import { formatCurrency } from '../../utils/currency';
 
 interface OrderDetailsProps {
   order: Order;
@@ -34,13 +34,7 @@ const OrderDetails = ({
           </Card>
           <Card>
             {items.map((item) => (
-              <ItemCard key={`${orderId}-${item.itemId}`}>
-                <Label isBold>{`${item.itemName} (${item.itemId})`}</Label>
-                <QuantityPrice>
-                  <Text>{`${item.quantity}x`}</Text>
-                  <Text>{formatCurrency(item.price)}</Text>
-                </QuantityPrice>
-              </ItemCard>
+              <OrderDetailsItem key={`${orderId}-${item.itemId}`} {...item} />
             ))}
           </Card>
           <Card>
@@ -76,25 +70,6 @@ const Label = styled(Text)<{ isBold?: boolean; isLabelInverted?: boolean }>`
   font-weight: ${({ isBold }) => (isBold ? 'bold' : 'normal')};
   color: ${({ theme, isLabelInverted }) =>
     isLabelInverted ? theme.color.labelInvert : theme.color.label};
-`;
-
-const ItemCard = styled(View)`
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 8px 0px;
-  border-bottom-color: #efefef;
-  border-bottom-width: 2px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const QuantityPrice = styled(View)`
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  text-align: right;
 `;
 
 const Total = styled(Text)`
