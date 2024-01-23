@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
+
+import ScreenView from '../../components/ScreenView';
 
 const Orders = (): React.JSX.Element => {
   return (
-    <View>
+    <ScreenView>
       <Text>Orders Screen</Text>
-    </View>
+    </ScreenView>
   );
 };
 

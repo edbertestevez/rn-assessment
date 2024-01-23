@@ -1,23 +1,25 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
+import styled, { ThemeProvider } from 'styled-components';
 
 import NavigationWrapper from './navigation/NavigationWrapper';
+import { appTheme } from './theme';
 
 const App = (): React.JSX.Element => {
   return (
-    <SafeAreaView>
-      <View style={styles.body}>
-        <NavigationWrapper />
-      </View>
-    </SafeAreaView>
+    <ThemeProvider theme={appTheme}>
+      <SafeAreaView>
+        <Body>
+          <NavigationWrapper />
+        </Body>
+      </SafeAreaView>
+    </ThemeProvider>
   );
 };
 
-const styles = StyleSheet.create({
-  body: {
-    display: 'flex',
-    height: '100%',
-  },
-});
+const Body = styled(View)`
+  display: flex;
+  height: 100%;
+`;
 
 export default App;
