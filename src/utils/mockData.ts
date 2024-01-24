@@ -91,15 +91,17 @@ export const mockValidCustomer101 = {
   address: '123 Main Street',
 };
 
+export const mockValidCustomer102 = {
+  customerId: 102,
+  customerName: 'Jane Smith',
+  email: 'janesmith@example.com',
+  phone: '987-654-3210',
+  address: '456 Elm Avenue',
+};
+
 export const mockCustomers: Customer[] = [
   mockValidCustomer101,
-  {
-    customerId: 102,
-    customerName: 'Jane Smith',
-    email: 'janesmith@example.com',
-    phone: '987-654-3210',
-    address: '456 Elm Avenue',
-  },
+  mockValidCustomer102,
   {
     customerId: 103,
     customerName: 'Mike Johnson',

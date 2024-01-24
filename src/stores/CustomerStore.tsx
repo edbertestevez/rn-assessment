@@ -1,17 +1,38 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { observable, action, makeObservable, runInAction } from 'mobx';
+import { makePersistable } from 'mobx-persist-store';
 
 import { OrdersAPI } from '../services/api/orders';
 import { Customer, CustomerId } from '../types/Customer';
 
-class CustomerStore {
+interface CustomerStoreConstructor {
+  initCustomers?: Customer[];
+  persist?: boolean;
+}
+
+export class CustomerStore {
   customers: Customer[] = [];
 
-  constructor() {
+  constructor({
+    initCustomers = [],
+    persist = false,
+  }: CustomerStoreConstructor) {
     makeObservable(this, {
       customers: observable,
       getCustomers: action,
       getCustomerById: action,
     });
+
+    // Initialize
+    this.customers = initCustomers;
+
+    if (persist) {
+      makePersistable(this, {
+        name: 'CustomerStore',
+        properties: ['customers'],
+        storage: AsyncStorage,
+      });
+    }
   }
 
   async getCustomers() {
@@ -31,6 +52,6 @@ class CustomerStore {
   }
 }
 
-const customerStore = new CustomerStore();
+const customerStore = new CustomerStore({ initCustomers: [], persist: true });
 
 export default customerStore;
