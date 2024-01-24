@@ -59,14 +59,24 @@ export class OrderStore {
         // Validate with AsyncStorage if orderId is part of closed orders, then set to Close
         this.orders = data.map((order) => ({
           ...order,
-          status: this.closedOrderIds.includes(order.orderId)
-            ? OrderStatus.CLOSE
-            : OrderStatus.OPEN,
+          status: this.formatStatus(order.orderId),
         }));
       });
     } catch (err) {
       console.error('Error fetching orders: ', err);
     }
+  }
+
+  formatStatus(id: OrderId): OrderStatus {
+    if (this.closedOrderIds.includes(id)) {
+      return OrderStatus.CLOSE;
+    }
+
+    if (this.expiredOrderIds.includes(id)) {
+      return OrderStatus.EXPIRED;
+    }
+
+    return OrderStatus.OPEN;
   }
 
   getOrderById(id: OrderId) {
