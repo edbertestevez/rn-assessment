@@ -10,6 +10,7 @@ export type OrderItem = {
 export enum OrderStatus {
   OPEN = 'open',
   CLOSE = 'close',
+  EXPIRED = 'expired',
 }
 
 export type OrderId = number;

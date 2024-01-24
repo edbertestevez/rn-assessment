@@ -11,6 +11,8 @@ export enum TestIds {
   ORDER_DETAILS_TAX_FREE = 'orderDetailsTaxFree',
   ORDER_DETAILS_TIMESTAMP = 'orderDetailsTimestamp',
   ORDER_DETAILS_CLOSE_ORDER_BUTTON = 'orderDetailsCloseOrderButton',
+  ORDER_DETAILS_PREPARE_ORDER_BUTTON = 'orderDetailsPrepareOrderButton',
+  ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL = 'orderDetailsPrepareOrderButtonLabel',
 }
 
 export default TestIds;

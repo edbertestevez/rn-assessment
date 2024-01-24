@@ -14,7 +14,9 @@ interface OrderDetailsProps {
   order: Order;
   customer: Customer;
   onCloseOrder: () => void;
-  isProcessing: boolean;
+  onPrepareOrder: () => void;
+  isClosing: boolean;
+  isPreparing: boolean;
   isOpen: boolean;
 }
 
@@ -22,7 +24,9 @@ const OrderDetails = ({
   order: { orderId, totalPrice, taxFree, status, timestamp, items },
   customer: { customerId, customerName, email, phone, address },
   onCloseOrder,
-  isProcessing,
+  onPrepareOrder,
+  isClosing,
+  isPreparing,
   isOpen,
 }: OrderDetailsProps): React.JSX.Element => {
   return (
@@ -30,9 +34,26 @@ const OrderDetails = ({
       <Body>
         <View>
           <HeaderCard isOpen={isOpen} testID={TestIds.ORDER_DETAILS_HEADER}>
-            <Label isBold isLabelInverted>{`Order ID: ${orderId}`}</Label>
-            <Label isLabelInverted>{`Status: ${status.toUpperCase()}`}</Label>
+            <View>
+              <Label isBold isLabelInverted>{`Order ID: ${orderId}`}</Label>
+              <Label isLabelInverted>{`Status: ${status.toUpperCase()}`}</Label>
+            </View>
+
+            {isOpen && (
+              <PrepareOrderButton
+                testID={TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON}
+                disabled={isPreparing}
+                activeOpacity={0.6}
+                onPress={onPrepareOrder}
+              >
+                <Label
+                  testID={TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL}
+                  isLabelInverted
+                >{`${isPreparing ? 'Preparing...' : 'Prepare Order'}`}</Label>
+              </PrepareOrderButton>
+            )}
           </HeaderCard>
+
           <Card>
             <Label isBold>Customer Details</Label>
             <Label testID={TestIds.CUSTOMER_ID}>{`ID: ${customerId}`}</Label>
@@ -45,17 +66,20 @@ const OrderDetails = ({
             <Label testID={TestIds.CUSTOMER_EMAIL}>{`Email: ${email}`}</Label>
             <Label testID={TestIds.CUSTOMER_PHONE}>{`Phone: ${phone}`}</Label>
           </Card>
+
           <Card>
             {items.map((item) => (
               <OrderDetailsItem key={`${orderId}-${item.itemId}`} {...item} />
             ))}
           </Card>
+
           <TotalCard>
             <Total>Total Price:</Total>
             <Total testID={TestIds.ORDER_DETAILS_TOTAL_PRICE}>
               {formatCurrency(totalPrice)}
             </Total>
           </TotalCard>
+
           <Card>
             <Label
               testID={TestIds.ORDER_DETAILS_TAX_FREE}
@@ -65,6 +89,7 @@ const OrderDetails = ({
             >{`Timestamp: ${timestamp}`}</Label>
           </Card>
         </View>
+
         {isOpen && (
           <CloseOrderButton
             onPress={onCloseOrder}
@@ -72,7 +97,7 @@ const OrderDetails = ({
             testID={TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON}
           >
             <Label isBold isLabelInverted>
-              {isProcessing ? 'Processing. . .' : 'Close Order'}
+              {isClosing ? 'Processing. . .' : 'Close Order'}
             </Label>
           </CloseOrderButton>
         )}
@@ -92,6 +117,9 @@ const Card = styled(View)`
 `;
 
 const HeaderCard = styled(Card)<{ isOpen: boolean }>`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: ${({ theme, isOpen }) =>
     isOpen ? theme.color.primary : theme.color.secondary};
   gap: 12px;
@@ -120,6 +148,15 @@ const CloseOrderButton = styled(TouchableOpacity)`
   background-color: ${({ theme }) => theme.color.secondary};
   margin: 16px 24px;
   height: 54px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const PrepareOrderButton = styled(TouchableOpacity)<{ disabled: boolean }>`
+  background-color: ${({ theme, disabled }) =>
+    disabled ? 'transparent' : theme.color.secondary};
+  height: 40px;
+  padding: 0px 16px;
   align-items: center;
   justify-content: center;
 `;

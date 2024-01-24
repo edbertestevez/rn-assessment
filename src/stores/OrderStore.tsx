@@ -20,15 +20,21 @@ interface OrderStoreConstructor {
 export class OrderStore {
   orders: Order[] = [];
   closedOrderIds: OrderId[] = [];
+  expiredOrderIds: OrderId[] = [];
+  preparingOrderIds: OrderId[] = [];
 
   // Persist was added to not persist data on mock testing
   constructor({ initOrders = [], persist = false }: OrderStoreConstructor) {
     makeObservable(this, {
       orders: observable,
       closedOrderIds: observable,
+      expiredOrderIds: observable,
+      preparingOrderIds: observable,
       getOrders: action,
       getOrderById: action,
       closeOrderById: action,
+      expireOrderById: action,
+      prepareOrderById: action,
       totalPendingEarnings: computed,
       totalConfirmedEarnings: computed,
     });
@@ -39,7 +45,7 @@ export class OrderStore {
     if (persist) {
       makePersistable(this, {
         name: 'OrderStore',
-        properties: ['orders', 'closedOrderIds'],
+        properties: ['orders', 'closedOrderIds', 'expiredOrderIds'],
         storage: AsyncStorage,
       });
     }
@@ -77,6 +83,22 @@ export class OrderStore {
     });
 
     this.closedOrderIds = this.closedOrderIds.concat(id);
+  }
+
+  expireOrderById(id: OrderId) {
+    this.orders.map((order) => {
+      if (order.orderId === id) {
+        order.status = OrderStatus.EXPIRED;
+      }
+
+      return order;
+    });
+
+    this.expiredOrderIds = this.expiredOrderIds.concat(id);
+  }
+
+  prepareOrderById(id: OrderId) {
+    this.preparingOrderIds = this.preparingOrderIds.concat(id);
   }
 
   get totalPendingEarnings(): number {

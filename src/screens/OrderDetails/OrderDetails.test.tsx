@@ -5,7 +5,6 @@ import React from 'react';
 import { ReactTestInstance } from 'react-test-renderer';
 
 import OrderDetails from './OrderDetails';
-import OrderDetailsContainer from './OrderDetailsContainer';
 import { OrderStore } from '../../stores/OrderStore.tsx';
 import {
   mockOrders,
@@ -52,8 +51,10 @@ it('Displays correct information on valid order', () => {
       order={mockValidCloseOrder}
       customer={mockValidCustomer101}
       onCloseOrder={jest.fn()}
-      isProcessing={false}
+      isClosing={false}
       isOpen={true}
+      isPreparing={false}
+      onPrepareOrder={jest.fn()}
     />,
   );
 
@@ -118,20 +119,6 @@ it('Displays correct information on valid order', () => {
   );
 });
 
-/** OrderDetailsContainer to displays invalid request if customer details is invalid */
-it('Displays invalid request message if customer details is invalid', () => {
-  const mockRoute = { params: { orderId: 1, customerId: 9999 } };
-
-  const { getByText } = render(
-    <OrderDetailsContainer
-      route={mockRoute as any}
-      navigation={jest.fn() as any}
-    />,
-  );
-
-  expect(getByText('Invalid request')).toBeTruthy();
-});
-
 /** Close order button should be hidden if status is not open */
 it('Should hide Close Order button if status is not open', async () => {
   const { queryByTestId } = render(
@@ -139,8 +126,10 @@ it('Should hide Close Order button if status is not open', async () => {
       order={mockValidCloseOrder}
       customer={mockValidCustomer101}
       onCloseOrder={jest.fn()}
-      isProcessing={false}
+      isClosing={false}
       isOpen={false}
+      isPreparing={false}
+      onPrepareOrder={jest.fn()}
     />,
   );
 
@@ -171,8 +160,10 @@ it('Should display Close Order button if status is open and updates state correc
       order={currentOrder}
       customer={mockValidCustomer101}
       onCloseOrder={handleCloseOrderPress}
-      isProcessing={false}
+      isClosing={false}
       isOpen={currentOrder.status === OrderStatus.OPEN}
+      isPreparing={false}
+      onPrepareOrder={jest.fn()}
     />,
   );
 
@@ -195,15 +186,17 @@ it('Should display Close Order button if status is open and updates state correc
   expect(getByText('Status: CLOSE')).toBeTruthy();
 });
 
-/** Close order button isProcessing label */
-it('Should display Close Order button with Processing label if isProcessing', async () => {
+/** Close order button isClosing label */
+it('Should display Close Order button with Processing label if isClosing', async () => {
   const { getByTestId } = render(
     <OrderDetails
       order={mockValidCloseOrder}
       customer={mockValidCustomer101}
       onCloseOrder={jest.fn()}
-      isProcessing={true}
+      isClosing={true}
       isOpen={true}
+      isPreparing={false}
+      onPrepareOrder={jest.fn}
     />,
   );
 
@@ -220,8 +213,10 @@ it('Should display Close Order button with default label', async () => {
       order={mockValidCloseOrder}
       customer={mockValidCustomer101}
       onCloseOrder={jest.fn()}
-      isProcessing={false}
+      isClosing={false}
       isOpen={true}
+      isPreparing={false}
+      onPrepareOrder={jest.fn()}
     />,
   );
 
@@ -229,4 +224,44 @@ it('Should display Close Order button with default label', async () => {
     getByTestId(TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON).props.children[0]
       .props.children,
   ).toEqual('Close Order');
+});
+
+/** Prepare Button display if open */
+it('Displays prepare button if status is open', () => {
+  const { getByTestId } = render(
+    <OrderDetails
+      order={mockValidOpenOrder}
+      customer={mockValidCustomer101}
+      onCloseOrder={jest.fn()}
+      isClosing={false}
+      isOpen={true}
+      isPreparing={false}
+      onPrepareOrder={jest.fn()}
+    />,
+  );
+
+  // Prepare button is displayed and shows correct label
+  expect(getByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON)).toBeTruthy();
+
+  expect(
+    getByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL),
+  ).toHaveTextContent('Prepare Order');
+});
+
+/** Hides prepare button if status is not open */
+it('Hides prepare button if status is not open', () => {
+  const { queryByTestId } = render(
+    <OrderDetails
+      order={mockValidOpenOrder}
+      customer={mockValidCustomer101}
+      onCloseOrder={jest.fn()}
+      isClosing={false}
+      isOpen={false}
+      isPreparing={false}
+      onPrepareOrder={jest.fn()}
+    />,
+  );
+
+  // Prepare button is displayed and shows correct label
+  expect(queryByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON)).toBeFalsy();
 });

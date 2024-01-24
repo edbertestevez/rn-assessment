@@ -58,7 +58,7 @@ const Title = styled(Text)`
 const OverviewContainer = styled(View)`
   display: flex;
   flex-direction: row;
-  margin: 0px 16px 8px 8px;
+  margin: 0px 8px 8px 8px;
   gap: 16px;
   justify-content: center;
 `;
