@@ -1,4 +1,4 @@
-enum TestIds {
+export enum TestIds {
   ORDER_ITEMS = 'orderItems',
   CUSTOMER_ID = 'customerId',
   CUSTOMER_NAME = 'customerName',

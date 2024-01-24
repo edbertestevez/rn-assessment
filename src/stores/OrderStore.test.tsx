@@ -1,11 +1,11 @@
 import { OrderStore } from './OrderStore';
-import { OrderStatus } from '../types/Order';
 import {
   mockInvalidOrder,
   mockOrders,
   mockValidCloseOrder,
   mockValidOpenOrder,
-} from '../utils/mockData';
+} from '../testUtils';
+import { OrderStatus } from '../types/Order';
 
 it('initializes orders correctly', () => {
   const orderStore = new OrderStore({ initOrders: mockOrders });

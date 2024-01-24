@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import styled from 'styled-components';
 
-import TestIds from '../../testUtils/testIds';
+import { TestIds } from '../../testUtils';
 import { OrderItem } from '../../types/Order';
 import { formatCurrency } from '../../utils/currency';
 

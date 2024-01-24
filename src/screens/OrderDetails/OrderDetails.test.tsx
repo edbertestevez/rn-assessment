@@ -7,19 +7,17 @@ import { ReactTestInstance } from 'react-test-renderer';
 import OrderDetails from './OrderDetails';
 import OrderDetailsContainer from './OrderDetailsContainer';
 import { OrderStore } from '../../stores/OrderStore.tsx';
-import TestIds from '../../testUtils/testIds';
-import {
-  render,
-  cleanup,
-  fireEvent,
-} from '../../testUtils/testingLibraryUtils';
-import { Order, OrderStatus } from '../../types/Order';
 import {
   mockOrders,
   mockValidCloseOrder,
   mockValidCustomer101,
   mockValidOpenOrder,
-} from '../../utils/mockData';
+  render,
+  cleanup,
+  fireEvent,
+  TestIds,
+} from '../../testUtils';
+import { Order, OrderStatus } from '../../types/Order';
 
 // Cleanup after each test
 afterEach(cleanup);

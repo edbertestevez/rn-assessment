@@ -2,13 +2,14 @@ import React from 'react';
 
 import Orders from './Orders';
 import { formatOrdersWithCustomerInfo } from '../../helpers/format';
-import TestIds from '../../testUtils/testIds';
 import {
   render,
   cleanup,
   fireEvent,
-} from '../../testUtils/testingLibraryUtils';
-import { mockCustomers, mockOrders } from '../../utils/mockData';
+  mockCustomers,
+  mockOrders,
+  TestIds,
+} from '../../testUtils';
 
 const mockList = formatOrdersWithCustomerInfo(mockOrders, mockCustomers);
 

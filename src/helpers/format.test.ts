@@ -1,6 +1,6 @@
 import { formatOrdersWithCustomerInfo } from './format';
+import { mockCustomers } from '../testUtils';
 import { Order, OrderStatus } from '../types/Order';
-import { mockCustomers } from '../utils/mockData';
 
 describe('formatOrdersWithCustomerInfo test cases', () => {
   it('returns formatted order with valid and existing customer', () => {

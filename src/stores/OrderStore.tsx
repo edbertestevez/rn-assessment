@@ -1,9 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { observable, action, makeObservable, runInAction } from 'mobx';
+import {
+  observable,
+  action,
+  makeObservable,
+  runInAction,
+  computed,
+} from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 
 import { OrdersAPI } from '../services/api/orders';
 import { Order, OrderId, OrderStatus } from '../types/Order';
+import { getPercentageValue } from '../utils';
 
 interface OrderStoreConstructor {
   initOrders?: Order[];
@@ -22,6 +29,7 @@ export class OrderStore {
       getOrders: action,
       getOrderById: action,
       closeOrderById: action,
+      totalPendingEarnings: computed,
     });
 
     // Initialize
@@ -68,6 +76,21 @@ export class OrderStore {
     });
 
     this.closedOrderIds = this.closedOrderIds.concat(id);
+  }
+
+  get totalPendingEarnings(): number {
+    return this.orders.reduce((total: number, order: Order) => {
+      if (order.taxFree) {
+        return total + order.totalPrice;
+      }
+
+      const percentageValue = getPercentageValue({
+        percentage: 21,
+        value: order.totalPrice,
+      });
+
+      return total + (order.totalPrice - percentageValue);
+    }, 0);
   }
 }
 

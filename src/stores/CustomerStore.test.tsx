@@ -3,7 +3,7 @@ import {
   mockCustomers,
   mockValidCustomer101,
   mockValidCustomer102,
-} from '../utils/mockData';
+} from '../testUtils';
 
 it('initializes orders correctly', () => {
   const customerStore = new CustomerStore({ initCustomers: mockCustomers });
