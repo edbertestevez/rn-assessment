@@ -154,7 +154,7 @@ it('Should hide Close Order button if status is not open', async () => {
 });
 
 /** Close order button should be displayed and works correctly if status is open */
-it('Should display Close Order button if status is open and works correctly', () => {
+it('Should display Close Order button if status is open and updates state correctly on press', () => {
   const mockedOrderStore = new OrderStore({ initOrders: mockOrders });
 
   // Spy on mobx action for trigger events

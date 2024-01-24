@@ -24,6 +24,7 @@ export class OrderStore {
       closeOrderById: action,
     });
 
+    // Initialize
     this.orders = initOrders;
 
     if (persist) {
