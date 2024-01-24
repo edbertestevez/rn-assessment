@@ -6,7 +6,7 @@ import { ReactTestInstance } from 'react-test-renderer';
 
 import OrderDetails from './OrderDetails';
 import OrderDetailsContainer from './OrderDetailsContainer';
-import orderStore from '../../stores/OrderStore.tsx';
+import { OrderStore } from '../../stores/OrderStore.tsx';
 import TestIds from '../../testUtils/testIds';
 import {
   render,
@@ -155,18 +155,18 @@ it('Should hide Close Order button if status is not open', async () => {
 
 /** Close order button should be displayed and works correctly if status is open */
 it('Should display Close Order button if status is open and works correctly', () => {
-  // Spy on mobx action for trigger events
-  const closeOrderSpy = jest.spyOn(orderStore, 'closeOrderById');
+  const mockedOrderStore = new OrderStore({ initOrders: mockOrders });
 
-  // Init store orders
-  orderStore.orders = mockOrders;
+  // Spy on mobx action for trigger events
+  const closeOrderSpy = jest.spyOn(mockedOrderStore, 'closeOrderById');
 
   const currentOrderId = mockValidOpenOrder.orderId;
-  const currentOrder = orderStore.getOrderById(
+  const currentOrder = mockedOrderStore.getOrderById(
     mockValidOpenOrder.orderId,
   ) as Order;
 
-  const handleCloseOrderPress = () => orderStore.closeOrderById(currentOrderId);
+  const handleCloseOrderPress = () =>
+    mockedOrderStore.closeOrderById(currentOrderId);
 
   const { getByTestId, getByText } = render(
     <OrderDetails
