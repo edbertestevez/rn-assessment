@@ -24,7 +24,18 @@ const OrdersContainer = ({
     customerStore.customers,
   );
 
-  return <Orders list={ordersList} handleItemPress={handleItemPress} />;
+  const totalPendingEarnings = orderStore.totalPendingEarnings;
+
+  const totalConfirmedEarnings = orderStore.totalConfirmedEarnings;
+
+  return (
+    <Orders
+      list={ordersList}
+      handleItemPress={handleItemPress}
+      totalPendingEarnings={totalPendingEarnings}
+      totalConfirmedEarnings={totalConfirmedEarnings}
+    />
+  );
 };
 
 export default observer(OrdersContainer);

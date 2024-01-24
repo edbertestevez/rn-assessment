@@ -39,3 +39,50 @@ it('closeOrderById', async () => {
   const openOrder = orderStore.getOrderById(mockInvalidOrder.orderId);
   expect(openOrder?.status).toEqual(OrderStatus.OPEN);
 });
+
+it('totalPendingEarnings and totalConfirmedEarnings', () => {
+  const mockDefaultInfo = {
+    timestamp: '',
+    customerId: 1,
+    items: [],
+  };
+
+  const orderStore = new OrderStore({
+    initOrders: [
+      {
+        orderId: 1,
+        status: OrderStatus.OPEN,
+        totalPrice: 10, // earning = 10
+        taxFree: true,
+        ...mockDefaultInfo,
+      },
+      {
+        orderId: 2,
+        status: OrderStatus.OPEN,
+        totalPrice: 50, // earning = 39.5
+        taxFree: false,
+        ...mockDefaultInfo,
+      },
+      {
+        orderId: 3,
+        status: OrderStatus.CLOSE,
+        totalPrice: 80, // earning = 80
+        taxFree: true,
+        ...mockDefaultInfo,
+      },
+      {
+        orderId: 4,
+        status: OrderStatus.CLOSE,
+        totalPrice: 75, // earning = 59.25
+        taxFree: false,
+        ...mockDefaultInfo,
+      },
+    ],
+  });
+
+  // Total pending earnings
+  expect(orderStore.totalPendingEarnings).toEqual(49.5);
+
+  // Total confirmed earnings
+  expect(orderStore.totalConfirmedEarnings).toEqual(139.25);
+});

@@ -18,7 +18,12 @@ afterEach(cleanup);
 
 it('renders correctly and displays correct number of order in the list', () => {
   const { getByText, getAllByTestId } = render(
-    <Orders list={mockList} handleItemPress={jest.fn()} />,
+    <Orders
+      list={mockList}
+      handleItemPress={jest.fn()}
+      totalPendingEarnings={0}
+      totalConfirmedEarnings={0}
+    />,
   );
 
   // Header should be present
@@ -31,7 +36,12 @@ it('renders correctly and displays correct number of order in the list', () => {
 // Order ID, customer name, and status should be visible on screen
 it('renders correct order and customer information', () => {
   const { getByText } = render(
-    <Orders list={mockList} handleItemPress={jest.fn()} />,
+    <Orders
+      list={mockList}
+      handleItemPress={jest.fn()}
+      totalPendingEarnings={0}
+      totalConfirmedEarnings={0}
+    />,
   );
 
   // Order #1 is present with correct information
@@ -51,7 +61,12 @@ it('handles item press correctly', () => {
   const mockItemPress = jest.fn();
 
   const { getAllByTestId } = render(
-    <Orders list={mockList} handleItemPress={mockItemPress} />,
+    <Orders
+      list={mockList}
+      handleItemPress={mockItemPress}
+      totalPendingEarnings={0}
+      totalConfirmedEarnings={0}
+    />,
   );
 
   fireEvent.press(getAllByTestId(TestIds.ORDER_ITEMS)?.[0]);

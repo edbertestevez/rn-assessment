@@ -5,5 +5,5 @@ export const getPercentageValue = ({
   percentage: number;
   value: number;
 }) => {
-  return (percentage / 100) * value;
+  return parseFloat(((percentage / 100) * value).toFixed(2));
 };

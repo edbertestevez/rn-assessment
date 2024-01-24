@@ -30,6 +30,7 @@ export class OrderStore {
       getOrderById: action,
       closeOrderById: action,
       totalPendingEarnings: computed,
+      totalConfirmedEarnings: computed,
     });
 
     // Initialize
@@ -80,6 +81,29 @@ export class OrderStore {
 
   get totalPendingEarnings(): number {
     return this.orders.reduce((total: number, order: Order) => {
+      if (order.status !== OrderStatus.OPEN) {
+        return total;
+      }
+
+      if (order.taxFree) {
+        return total + order.totalPrice;
+      }
+
+      const percentageValue = getPercentageValue({
+        percentage: 21,
+        value: order.totalPrice,
+      });
+
+      return total + (order.totalPrice - percentageValue);
+    }, 0);
+  }
+
+  get totalConfirmedEarnings(): number {
+    return this.orders.reduce((total: number, order: Order) => {
+      if (order.status !== OrderStatus.CLOSE) {
+        return total;
+      }
+
       if (order.taxFree) {
         return total + order.totalPrice;
       }

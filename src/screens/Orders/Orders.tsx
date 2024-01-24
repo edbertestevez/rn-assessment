@@ -1,21 +1,42 @@
 import React from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import styled from 'styled-components';
 
 import OrderItem from './OrderItem';
 import ScreenView from '../../components/ScreenView';
 import { CustomerId } from '../../types/Customer';
 import { OrderId, OrderWithCustomerInfo } from '../../types/Order';
+import { formatCurrency } from '../../utils';
 
 interface OrdersProps {
   list: OrderWithCustomerInfo[];
   handleItemPress: (orderId: OrderId, customerId: CustomerId) => void;
+  totalPendingEarnings: number;
+  totalConfirmedEarnings: number;
 }
 
-const Orders = ({ list, handleItemPress }: OrdersProps): React.JSX.Element => {
+const Orders = ({
+  list,
+  handleItemPress,
+  totalPendingEarnings,
+  totalConfirmedEarnings,
+}: OrdersProps): React.JSX.Element => {
   return (
     <ScreenView>
       <Title>Order Portal</Title>
+      <OverviewContainer>
+        <EarningsContainer>
+          <Text>Confirmed Earnings</Text>
+          <EarningsLabel>
+            {formatCurrency(totalConfirmedEarnings)}
+          </EarningsLabel>
+        </EarningsContainer>
+        <EarningsContainer>
+          <Text>Pending Earnings</Text>
+          <EarningsLabel>{formatCurrency(totalPendingEarnings)}</EarningsLabel>
+        </EarningsContainer>
+      </OverviewContainer>
+
       <FlatList<OrderWithCustomerInfo>
         data={list}
         renderItem={(item) => (
@@ -32,6 +53,31 @@ const Title = styled(Text)`
   text-align: center;
   margin: 24px;
   color: ${({ theme }) => theme.color.primary};
+`;
+
+const OverviewContainer = styled(View)`
+  display: flex;
+  flex-direction: row;
+  margin: 0px 16px 8px 8px;
+  gap: 16px;
+  justify-content: center;
+`;
+
+const EarningsContainer = styled(View)`
+  flex: 1;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  shadow-opacity: 0.25;
+  shadow-radius: 4px;
+  elevation: 4;
+`;
+
+const EarningsLabel = styled(Text)`
+  font-size: ${({ theme }) => theme.fontSize.large};
+  margin-top: 8px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.color.label};
 `;
 
 export default Orders;
