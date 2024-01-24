@@ -1289,7 +1289,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - rtn-calculator (0.0.1):
+  - rtn-timer (0.0.1):
     - glog
     - hermes-engine
     - RCT-Folly (= 2022.05.16.00)
@@ -1391,7 +1391,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - rtn-calculator (from `../node_modules/rtn-calculator`)
+  - rtn-timer (from `../node_modules/rtn-timer`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1520,8 +1520,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  rtn-calculator:
-    :path: "../node_modules/rtn-calculator"
+  rtn-timer:
+    :path: "../node_modules/rtn-timer"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1592,7 +1592,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 559f22cc4b582414e783fd7255974b29e24b451c
   RNGestureHandler: 1190c218cdaaf029ee1437076a3fbbc3297d89fb
   RNScreens: f7b8bb892b4957f6f91e5dfd9a191e7f13ce8baa
-  rtn-calculator: 3ae46870c8a4e23abfa5345d0f3410c1732ed51e
+  rtn-timer: 4b8ab2901c81aab5a3d628e56f0b76db041d98c2
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: e64aa65de36c0832d04e8c7bd614396c77a80047
 

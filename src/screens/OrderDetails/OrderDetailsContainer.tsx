@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Text } from 'react-native';
-import RTNCalculator from 'rtn-calculator/js/NativeCalculator';
+import RTNTimer from 'rtn-timer/js/NativeTimer';
 
 import OrderDetails from './OrderDetails';
 import { OrderDetailsNavigationProps } from '../../navigation/AppNavigator';
@@ -19,10 +19,6 @@ const OrderDetailsContainer = ({
   const customerData = customerStore.getCustomerById(customerId);
   const isOpen = orderData?.status === OrderStatus.OPEN;
 
-  useEffect(() => {
-    console.log("PACKAGE => ", RTNCalculator);
-    RTNCalculator?.add(3, 7).then((data) => console.log(data));
-  }, []);
   const handleCloseOrder = useCallback(() => {
     setIsProcessing(true);
 
