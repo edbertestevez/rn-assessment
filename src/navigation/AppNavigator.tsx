@@ -1,5 +1,4 @@
 import {
-  StackScreenProps,
   createStackNavigator,
 } from '@react-navigation/stack';
 import React from 'react';
@@ -7,25 +6,7 @@ import React from 'react';
 import Routes from './routes';
 import OrderDetailsContainer from '../screens/OrderDetails/OrderDetailsContainer';
 import OrdersContainer from '../screens/Orders/OrdersContainer';
-import { CustomerId } from '../types/Customer';
-import { OrderId } from '../types/Order';
-
-// Main stack config per screen
-export type StackParamList = {
-  [Routes.ORDERS]: undefined;
-  [Routes.ORDER_DETAILS]: { orderId: OrderId; customerId: CustomerId };
-};
-
-// Navigation props per screen
-export type OrdersNavigationProps = StackScreenProps<
-  StackParamList,
-  Routes.ORDERS
->;
-
-export type OrderDetailsNavigationProps = StackScreenProps<
-  StackParamList,
-  Routes.ORDER_DETAILS
->;
+import { StackParamList } from './types';
 
 // Main Stack navigation
 const Stack = createStackNavigator<StackParamList>();
