@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 
 import Orders from './Orders';
 import { formatOrdersWithCustomerInfo } from '../../helpers/format.ts';
-import Routes from '../../navigation/routes.ts';
 import customerStore from '../../stores/CustomerStore.tsx';
 import orderStore from '../../stores/OrderStore.tsx';
 import { CustomerId } from '../../types/Customer.ts';

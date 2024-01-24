@@ -4,7 +4,7 @@ import { Alert, Text } from 'react-native';
 import RTNTimer from 'rtn-timer/js/NativeTimer';
 
 import OrderDetails from './OrderDetails';
-import { OrderDetailsNavigationProps } from '../../navigation/AppNavigator';
+import { OrderDetailsStackScreenProps } from '../../navigation';
 import customerStore from '../../stores/CustomerStore.tsx';
 import orderStore from '../../stores/OrderStore.tsx';
 import { OrderStatus } from '../../types/Order.ts';
@@ -14,7 +14,7 @@ const PREPARE_TIME_SECONDS = 10;
 
 const OrderDetailsContainer = ({
   route,
-}: OrderDetailsNavigationProps): React.JSX.Element => {
+}: OrderDetailsStackScreenProps): React.JSX.Element => {
   const [isClosing, setIsClosing] = useState<boolean>(false);
   const { orderId, customerId } = route.params;
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { SafeAreaView, View } from 'react-native';
 import styled, { ThemeProvider } from 'styled-components';
 
-import NavigationWrapper from './navigation/NavigationWrapper';
+import { NavigationWrapper } from './navigation';
 import customerStore from './stores/CustomerStore';
 import orderStore from './stores/OrderStore.tsx';
 import { appTheme } from './theme';
