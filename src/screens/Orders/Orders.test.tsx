@@ -13,9 +13,7 @@ import { mockCustomers, mockOrders } from '../../utils/mockData';
 const mockList = formatOrdersWithCustomerInfo(mockOrders, mockCustomers);
 
 // Cleanup after each test
-afterEach(() => {
-  cleanup();
-});
+afterEach(cleanup);
 
 it('renders correctly and displays correct number of order in the list', () => {
   const { getByText, getAllByTestId } = render(

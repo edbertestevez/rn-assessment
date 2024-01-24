@@ -4,8 +4,10 @@ import styled from 'styled-components';
 
 import OrderDetailsItem from './OrderDetailsItem';
 import ScreenView from '../../components/ScreenView';
+import TestIds from '../../testUtils/testIds';
 import { Customer } from '../../types/Customer';
 import { Order } from '../../types/Order';
+import { formatCurrency } from '../../utils/currency';
 
 interface OrderDetailsProps {
   order: Order;
@@ -26,23 +28,34 @@ const OrderDetails = ({
           </HeaderCard>
           <Card>
             <Label isBold>Customer Details</Label>
-            <Label>{`ID: ${customerId}`}</Label>
-            <Label>{`Name: ${customerName}`}</Label>
-            <Label>{`Address: ${address}`}</Label>
-            <Label>{`Email: ${email}`}</Label>
-            <Label>{`Phone: ${phone}`}</Label>
+            <Label testID={TestIds.CUSTOMER_ID}>{`ID: ${customerId}`}</Label>
+            <Label
+              testID={TestIds.CUSTOMER_NAME}
+            >{`Name: ${customerName}`}</Label>
+            <Label
+              testID={TestIds.CUSTOMER_ADDRESS}
+            >{`Address: ${address}`}</Label>
+            <Label testID={TestIds.CUSTOMER_EMAIL}>{`Email: ${email}`}</Label>
+            <Label testID={TestIds.CUSTOMER_PHONE}>{`Phone: ${phone}`}</Label>
           </Card>
           <Card>
             {items.map((item) => (
               <OrderDetailsItem key={`${orderId}-${item.itemId}`} {...item} />
             ))}
           </Card>
+          <TotalCard>
+            <Total>Total Price:</Total>
+            <Total testID={TestIds.ORDER_DETAILS_TOTAL_PRICE}>
+              {formatCurrency(totalPrice)}
+            </Total>
+          </TotalCard>
           <Card>
-            <Total>{`Total Price: ${totalPrice}`}</Total>
-          </Card>
-          <Card>
-            <Label>{`Tax Free: ${taxFree ? 'Yes' : 'No'}`}</Label>
-            <Label>{`Timestamp: ${timestamp}`}</Label>
+            <Label
+              testID={TestIds.ORDER_DETAILS_TAX_FREE}
+            >{`Tax Free: ${taxFree ? 'Yes' : 'No'}`}</Label>
+            <Label
+              testID={TestIds.ORDER_DETAILS_TIMESTAMP}
+            >{`Timestamp: ${timestamp}`}</Label>
           </Card>
         </View>
       </Body>
@@ -70,6 +83,11 @@ const Label = styled(Text)<{ isBold?: boolean; isLabelInverted?: boolean }>`
   font-weight: ${({ isBold }) => (isBold ? 'bold' : 'normal')};
   color: ${({ theme, isLabelInverted }) =>
     isLabelInverted ? theme.color.labelInvert : theme.color.label};
+`;
+
+const TotalCard = styled(Card)`
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const Total = styled(Text)`

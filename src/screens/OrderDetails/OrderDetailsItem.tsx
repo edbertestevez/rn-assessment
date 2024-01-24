@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import styled from 'styled-components';
 
+import TestIds from '../../testUtils/testIds';
 import { OrderItem } from '../../types/Order';
 import { formatCurrency } from '../../utils/currency';
 
@@ -14,7 +15,7 @@ const OrderDetailsItem = ({
   price,
 }: OrderDetailsItemProp): React.JSX.Element => {
   return (
-    <ItemCard>
+    <ItemCard testID={TestIds.ORDER_DETAILS_ITEMS}>
       <ItemName>{`${itemName} (${itemId})`}</ItemName>
       <QuantityPrice>
         <Text>{`${quantity}x`}</Text>
