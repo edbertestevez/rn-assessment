@@ -5,11 +5,22 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(startTimer:(NSInteger)duration resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        resolve(@"Timer completed!");
-    });
+- (void)runNativeTimer:(double)duration resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+    @try {
+        NSLog(@"IOS Native Timer started");
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLog(@"IOS Native Timer ended");
+            
+            // Creating an NSString with the text result
+            NSString *resultText = [NSString stringWithFormat:@"timer success", duration];
+            
+            // Resolving the promise with the text result
+            resolve(resultText);
+        });
+    } @catch (NSException *exception) {
+        reject(@"Timer Error", @"An error occurred while running the timer", nil);
+    }
 }
 
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:

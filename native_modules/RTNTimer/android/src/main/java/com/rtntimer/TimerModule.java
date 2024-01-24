@@ -31,20 +31,20 @@ public class TimerModule extends NativeTimerSpec {
         return NAME;
     }
 
-    @ReactMethod
-    public void runNativeTimer(double duration, Promise promise) {
-        try {
-            Log.d("TIMER_MODULE", "native timer started");
+        @ReactMethod
+        public void runNativeTimer(double duration, Promise promise) {
+            try {
+                Log.d("TIMER_MODULE", "ANDROID native timer started");
 
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d("TIMER_MODULE", "native timer ended");
-                    promise.resolve("timer success");
-                }
-            }, (int) duration);
-        }catch(Exception e) {
-            promise.reject("Timer Error", e);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("TIMER_MODULE", "ANDROID native timer ended");
+                        promise.resolve("timer success");
+                    }
+                }, (int) duration * 1000);
+            }catch(Exception e) {
+                promise.reject("Timer Error", e);
+            }
         }
-    }
 }
