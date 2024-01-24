@@ -1,5 +1,6 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 
 import OrderDetailsItem from './OrderDetailsItem';
@@ -12,17 +13,23 @@ import { formatCurrency } from '../../utils/currency';
 interface OrderDetailsProps {
   order: Order;
   customer: Customer;
+  onCloseOrder: () => void;
+  isProcessing: boolean;
+  isOpen: boolean;
 }
 
 const OrderDetails = ({
   order: { orderId, totalPrice, taxFree, status, timestamp, items },
   customer: { customerId, customerName, email, phone, address },
+  onCloseOrder,
+  isProcessing,
+  isOpen,
 }: OrderDetailsProps): React.JSX.Element => {
   return (
     <ScreenView>
       <Body>
         <View>
-          <HeaderCard>
+          <HeaderCard isOpen={isOpen} testID={TestIds.ORDER_DETAILS_HEADER}>
             <Label isBold isLabelInverted>{`Order ID: ${orderId}`}</Label>
             <Label isLabelInverted>{`Status: ${status.toUpperCase()}`}</Label>
           </HeaderCard>
@@ -58,6 +65,17 @@ const OrderDetails = ({
             >{`Timestamp: ${timestamp}`}</Label>
           </Card>
         </View>
+        {isOpen && (
+          <CloseOrderButton
+            onPress={onCloseOrder}
+            activeOpacity={0.6}
+            testID={TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON}
+          >
+            <Label isBold isLabelInverted>
+              {isProcessing ? 'Processing. . .' : 'Close Order'}
+            </Label>
+          </CloseOrderButton>
+        )}
       </Body>
     </ScreenView>
   );
@@ -73,8 +91,9 @@ const Card = styled(View)`
   background-color: #ffffff;
 `;
 
-const HeaderCard = styled(Card)`
-  background-color: ${({ theme }) => theme.color.primary};
+const HeaderCard = styled(Card)<{ isOpen: boolean }>`
+  background-color: ${({ theme, isOpen }) =>
+    isOpen ? theme.color.primary : theme.color.secondary};
   gap: 12px;
 `;
 
@@ -96,4 +115,13 @@ const Total = styled(Text)`
   font-size: ${({ theme }) => theme.fontSize.large};
   color: ${({ theme }) => theme.color.primary};
 `;
-export default OrderDetails;
+
+const CloseOrderButton = styled(TouchableOpacity)`
+  background-color: ${({ theme }) => theme.color.secondary};
+  margin: 16px 24px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export default observer(OrderDetails);

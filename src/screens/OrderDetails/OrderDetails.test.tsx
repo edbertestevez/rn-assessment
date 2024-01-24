@@ -1,13 +1,24 @@
+/**
+ * Note: react-dom is required to make the mobx 'observer' work during test
+ */
 import React from 'react';
 import { ReactTestInstance } from 'react-test-renderer';
 
 import OrderDetails from './OrderDetails';
 import OrderDetailsContainer from './OrderDetailsContainer';
+import orderStore from '../../stores/OrderStore.tsx';
 import TestIds from '../../testUtils/testIds';
-import { render, cleanup } from '../../testUtils/testingLibraryUtils';
 import {
+  render,
+  cleanup,
+  fireEvent,
+} from '../../testUtils/testingLibraryUtils';
+import { Order, OrderStatus } from '../../types/Order';
+import {
+  mockOrders,
   mockValidCloseOrder,
   mockValidCustomer101,
+  mockValidOpenOrder,
 } from '../../utils/mockData';
 
 // Cleanup after each test
@@ -42,6 +53,9 @@ it('Displays correct information on valid order', () => {
     <OrderDetails
       order={mockValidCloseOrder}
       customer={mockValidCustomer101}
+      onCloseOrder={jest.fn()}
+      isProcessing={false}
+      isOpen={true}
     />,
   );
 
@@ -118,4 +132,103 @@ it('Displays invalid request message if customer details is invalid', () => {
   );
 
   expect(getByText('Invalid request')).toBeTruthy();
+});
+
+/** Close order button should be hidden if status is not open */
+it('Should hide Close Order button if status is not open', async () => {
+  const { queryByTestId } = render(
+    <OrderDetails
+      order={mockValidCloseOrder}
+      customer={mockValidCustomer101}
+      onCloseOrder={jest.fn()}
+      isProcessing={false}
+      isOpen={false}
+    />,
+  );
+
+  const closeOrderButton = await queryByTestId(
+    TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON,
+  );
+
+  expect(closeOrderButton).toEqual(null);
+});
+
+/** Close order button should be displayed and works correctly if status is open */
+it('Should display Close Order button if status is open and works correctly', () => {
+  // Spy on mobx action for trigger events
+  const closeOrderSpy = jest.spyOn(orderStore, 'closeOrderById');
+
+  // Init store orders
+  orderStore.orders = mockOrders;
+
+  const currentOrderId = mockValidOpenOrder.orderId;
+  const currentOrder = orderStore.getOrderById(
+    mockValidOpenOrder.orderId,
+  ) as Order;
+
+  const handleCloseOrderPress = () => orderStore.closeOrderById(currentOrderId);
+
+  const { getByTestId, getByText } = render(
+    <OrderDetails
+      order={currentOrder}
+      customer={mockValidCustomer101}
+      onCloseOrder={handleCloseOrderPress}
+      isProcessing={false}
+      isOpen={currentOrder.status === OrderStatus.OPEN}
+    />,
+  );
+
+  const closeOrderButton = getByTestId(
+    TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON,
+  );
+
+  // Status is open initially
+  expect(getByText('Status: OPEN')).toBeTruthy();
+
+  // Close button is present
+  expect(closeOrderButton).toBeTruthy();
+
+  // Simulate button press to close the order
+  fireEvent.press(closeOrderButton);
+  expect(closeOrderSpy).toHaveBeenCalledTimes(1);
+
+  // Check if order status has been updated
+  expect(currentOrder.status).toEqual(OrderStatus.CLOSE);
+  expect(getByText('Status: CLOSE')).toBeTruthy();
+});
+
+/** Close order button isProcessing label */
+it('Should display Close Order button with Processing label if isProcessing', async () => {
+  const { getByTestId } = render(
+    <OrderDetails
+      order={mockValidCloseOrder}
+      customer={mockValidCustomer101}
+      onCloseOrder={jest.fn()}
+      isProcessing={true}
+      isOpen={true}
+    />,
+  );
+
+  expect(
+    getByTestId(TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON).props.children[0]
+      .props.children,
+  ).toEqual('Processing. . .');
+});
+
+/** Close order button default label */
+it('Should display Close Order button with default label', async () => {
+  const { getByTestId } = render(
+    <OrderDetails
+      order={mockValidCloseOrder}
+      customer={mockValidCustomer101}
+      onCloseOrder={jest.fn()}
+      isProcessing={false}
+      isOpen={true}
+    />,
+  );
+
+  expect(
+    getByTestId(TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON).props.children[0]
+      .props.children,
+  ).toEqual('Close Order');
 });

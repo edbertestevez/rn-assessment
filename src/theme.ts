@@ -1,5 +1,6 @@
 export type ColorTheme = {
   primary: string;
+  secondary: string;
   mainBg: string;
   label: string;
   labelInvert: string;
@@ -26,6 +27,7 @@ export const fontSize: FontSize = {
 
 export const colorTheme: ColorTheme = {
   primary: '#00263E',
+  secondary: '#D45902',
   mainBg: '#EDEDED',
   label: '#0E151B',
   labelInvert: '#FFFFFF',

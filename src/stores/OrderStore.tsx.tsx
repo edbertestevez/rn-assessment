@@ -1,7 +1,7 @@
 import { observable, action, makeObservable, runInAction } from 'mobx';
 
 import { OrdersAPI } from '../services/api/orders';
-import { Order, OrderId } from '../types/Order';
+import { Order, OrderId, OrderStatus } from '../types/Order';
 
 class OrderStore {
   orders: Order[] = [];
@@ -11,6 +11,7 @@ class OrderStore {
       orders: observable,
       getOrders: action,
       getOrderById: action,
+      closeOrderById: action,
     });
   }
 
@@ -28,6 +29,16 @@ class OrderStore {
 
   getOrderById(id: OrderId) {
     return this.orders.find((order) => order.orderId === id);
+  }
+
+  closeOrderById(id: OrderId) {
+    this.orders.map((order) => {
+      if (order.orderId === id) {
+        order.status = OrderStatus.CLOSE;
+      }
+
+      return order;
+    });
   }
 }
 
