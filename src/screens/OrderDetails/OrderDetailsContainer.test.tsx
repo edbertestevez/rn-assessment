@@ -1,6 +1,7 @@
-import { TestIds, fireEvent, render } from '../../testUtils';
-import OrderDetailsContainer from './OrderDetailsContainer';
 import React from 'react';
+
+import OrderDetailsContainer from './OrderDetailsContainer';
+import { render } from '../../testUtils';
 
 /** OrderDetailsContainer to displays invalid request if customer details is invalid */
 it('Displays invalid request message if customer details is invalid', () => {

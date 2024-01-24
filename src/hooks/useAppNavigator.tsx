@@ -1,6 +1,7 @@
-import { useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useCallback } from 'react';
+
 import { OrderDetailsRouteParams, StackParamList, Routes } from '../navigation';
 
 const useAppNavigator = () => {

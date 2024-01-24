@@ -2,9 +2,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
 import Routes from './routes';
+import { StackParamList } from './types';
 import OrderDetailsContainer from '../screens/OrderDetails/OrderDetailsContainer';
 import OrdersContainer from '../screens/Orders/OrdersContainer';
-import { StackParamList } from './types';
 
 // Main Stack navigation
 const Stack = createStackNavigator<StackParamList>();

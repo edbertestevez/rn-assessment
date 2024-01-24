@@ -3,11 +3,11 @@ import React, { useCallback } from 'react';
 
 import Orders from './Orders';
 import { formatOrdersWithCustomerInfo } from '../../helpers/format.ts';
+import useAppNavigator from '../../hooks/useAppNavigator.tsx';
 import customerStore from '../../stores/CustomerStore.tsx';
 import orderStore from '../../stores/OrderStore.tsx';
 import { CustomerId } from '../../types/Customer.ts';
 import { OrderId } from '../../types/Order';
-import useAppNavigator from '../../hooks/useAppNavigator.tsx';
 
 // Note: navigation can be accessed via props from provider
 // But for this technical challenge, I'll use the custom hooks created for stage #6
@@ -17,7 +17,7 @@ const OrdersContainer = (): React.JSX.Element => {
   const handleItemPress = useCallback(
     (orderId: OrderId, customerId: CustomerId) =>
       navigateToOrderDetails({ orderId, customerId }),
-    [],
+    [navigateToOrderDetails],
   );
 
   const ordersList = formatOrdersWithCustomerInfo(

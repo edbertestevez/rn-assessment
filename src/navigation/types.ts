@@ -1,7 +1,8 @@
 import { StackScreenProps } from '@react-navigation/stack';
+
+import Routes from './routes';
 import { CustomerId } from '../types/Customer';
 import { OrderId } from '../types/Order';
-import Routes from './routes';
 
 export type OrderDetailsRouteParams = {
   orderId: OrderId;

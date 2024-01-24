@@ -1,8 +1,9 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import useAppNavigator from './useAppNavigator';
+import { render, fireEvent } from '@testing-library/react-native';
+import React from 'react';
 import { Button } from 'react-native';
+
+import useAppNavigator from './useAppNavigator';
 import { Routes } from '../navigation';
 
 // Mock the useNavigation.navigate
