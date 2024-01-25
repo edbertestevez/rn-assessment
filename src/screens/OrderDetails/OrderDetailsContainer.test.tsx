@@ -9,7 +9,7 @@ import { PREPARE_TIME_SECONDS } from '../../config';
 import customerStore from '../../stores/CustomerStore';
 import orderStore from '../../stores/OrderStore';
 import { TestIds, fireEvent, render, waitFor } from '../../testUtils';
-import { getMilliseconds } from '../../utils';
+import { getMilliseconds } from '../../helpers';
 
 jest.useFakeTimers();
 

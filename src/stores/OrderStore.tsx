@@ -10,7 +10,7 @@ import { makePersistable } from 'mobx-persist-store';
 
 import { OrdersAPIService } from '../api/orders';
 import { Order, OrderId, OrderStatus } from '../types';
-import { getPercentageValue } from '../utils';
+import { getPercentageValue } from '../helpers';
 
 interface OrderStoreConstructor {
   initOrders?: Order[];

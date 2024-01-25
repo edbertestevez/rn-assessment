@@ -12,7 +12,7 @@ import 'react-native-gesture-handler/jestSetup';
 import { mockCustomersApiService } from './src/api/customers';
 import { mockOrdersApiService } from './src/api/orders';
 import { PREPARE_TIME_SECONDS } from './src/config';
-import { getMilliseconds } from './src/utils';
+import { getMilliseconds } from './src/helpers';
 
 // Global Jest actions
 beforeAll(() => {

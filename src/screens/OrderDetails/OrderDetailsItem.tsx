@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { TestIds } from '../../testUtils';
 import { OrderItem } from '../../types';
-import { formatCurrency } from '../../utils/currency';
+import { formatCurrency } from '../../helpers/currency';
 
 interface OrderDetailsItemProp extends OrderItem {}
 

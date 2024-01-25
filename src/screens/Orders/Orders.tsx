@@ -6,7 +6,7 @@ import OrderItem from './OrderItem';
 import ScreenView from '../../components/ScreenView';
 import { TestIds } from '../../testUtils';
 import { OrderId, OrderWithCustomerInfo, CustomerId } from '../../types';
-import { formatCurrency } from '../../utils';
+import { formatCurrency } from '../../helpers';
 
 interface OrdersProps {
   list: OrderWithCustomerInfo[];

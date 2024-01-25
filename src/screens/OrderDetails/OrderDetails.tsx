@@ -7,7 +7,7 @@ import OrderDetailsItem from './OrderDetailsItem';
 import ScreenView from '../../components/ScreenView';
 import { TestIds } from '../../testUtils';
 import { Customer, Order } from '../../types';
-import { formatCurrency } from '../../utils/currency';
+import { formatCurrency } from '../../helpers/currency';
 
 interface OrderDetailsProps {
   order: Order;
