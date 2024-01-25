@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 import OrderItem from './OrderItem';
 import ScreenView from '../../components/ScreenView';
+import { formatCurrency } from '../../helpers';
 import { TestIds } from '../../testUtils';
 import { OrderId, OrderWithCustomerInfo, CustomerId } from '../../types';
-import { formatCurrency } from '../../helpers';
 
 interface OrdersProps {
   list: OrderWithCustomerInfo[];

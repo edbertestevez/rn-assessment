@@ -5,9 +5,9 @@ import styled from 'styled-components';
 
 import OrderDetailsItem from './OrderDetailsItem';
 import ScreenView from '../../components/ScreenView';
+import { formatCurrency } from '../../helpers/currency';
 import { TestIds } from '../../testUtils';
 import { Customer, Order } from '../../types';
-import { formatCurrency } from '../../helpers/currency';
 
 interface OrderDetailsProps {
   order: Order;

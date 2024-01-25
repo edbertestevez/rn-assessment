@@ -2,9 +2,9 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import styled from 'styled-components';
 
+import { formatCurrency } from '../../helpers/currency';
 import { TestIds } from '../../testUtils';
 import { OrderItem } from '../../types';
-import { formatCurrency } from '../../helpers/currency';
 
 interface OrderDetailsItemProp extends OrderItem {}
 

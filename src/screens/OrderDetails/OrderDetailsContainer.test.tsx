@@ -6,10 +6,10 @@ import OrderDetailsContainer from './OrderDetailsContainer';
 import { mockValidCustomer101 } from '../../api/customers';
 import { mockValidOpenOrder } from '../../api/orders';
 import { PREPARE_TIME_SECONDS } from '../../config';
+import { getMilliseconds } from '../../helpers';
 import customerStore from '../../stores/CustomerStore';
 import orderStore from '../../stores/OrderStore';
 import { TestIds, fireEvent, render, waitFor } from '../../testUtils';
-import { getMilliseconds } from '../../helpers';
 
 jest.useFakeTimers();
 
