@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import OrderItem from './OrderItem';
 import ScreenView from '../../components/ScreenView';
+import { TestIds } from '../../testUtils';
 import { OrderId, OrderWithCustomerInfo, CustomerId } from '../../types';
 import { formatCurrency } from '../../utils';
 
@@ -26,13 +27,15 @@ const Orders = ({
       <OverviewContainer>
         <EarningsContainer>
           <Text>Confirmed Earnings</Text>
-          <EarningsLabel>
+          <EarningsLabel testID={TestIds.ORDERS_CONFIRMED_EARNINGS}>
             {formatCurrency(totalConfirmedEarnings)}
           </EarningsLabel>
         </EarningsContainer>
         <EarningsContainer>
           <Text>Pending Earnings</Text>
-          <EarningsLabel>{formatCurrency(totalPendingEarnings)}</EarningsLabel>
+          <EarningsLabel testID={TestIds.ORDERS_PENDING_EARNINGS}>
+            {formatCurrency(totalPendingEarnings)}
+          </EarningsLabel>
         </EarningsContainer>
       </OverviewContainer>
 

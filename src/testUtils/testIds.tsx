@@ -1,5 +1,7 @@
 export enum TestIds {
   ORDER_ITEMS = 'orderItems',
+  ORDERS_CONFIRMED_EARNINGS = 'ordersConfirmedEarnings',
+  ORDERS_PENDING_EARNINGS = 'ordersPendingEarnings',
   CUSTOMER_ID = 'customerId',
   CUSTOMER_NAME = 'customerName',
   CUSTOMER_ADDRESS = 'customerAddress',

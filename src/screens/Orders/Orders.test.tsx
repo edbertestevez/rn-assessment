@@ -24,7 +24,7 @@ it('renders correctly and displays correct number of order in the list', () => {
   // Header should be present
   expect(getByText('Order Portal')).toBeTruthy();
 
-  // Should render 4 orders in the list
+  // Should render 3 orders in the list
   expect(getAllByTestId(TestIds.ORDER_ITEMS)).toHaveLength(3);
 });
 

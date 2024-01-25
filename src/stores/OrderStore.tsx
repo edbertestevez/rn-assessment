@@ -17,6 +17,19 @@ interface OrderStoreConstructor {
   persist?: boolean;
 }
 
+const calculateEarning = (total: number, order: Order) => {
+  if (order.taxFree) {
+    return total + order.totalPrice;
+  }
+
+  const percentageValue = getPercentageValue({
+    percentage: 21,
+    value: order.totalPrice,
+  });
+
+  return total + (order.totalPrice - percentageValue);
+};
+
 export class OrderStore {
   orders: Order[] = [];
   closedOrderIds: OrderId[] = [];
@@ -31,6 +44,7 @@ export class OrderStore {
       expiredOrderIds: observable,
       preparingOrderIds: observable,
       clearStoredIds: action,
+      setOrders: action,
       getOrders: action,
       getOrderById: action,
       closeOrderById: action,
@@ -50,6 +64,10 @@ export class OrderStore {
         storage: AsyncStorage,
       });
     }
+  }
+
+  setOrders(newOrders: Order[]) {
+    this.orders = newOrders;
   }
 
   async getOrders() {
@@ -112,41 +130,25 @@ export class OrderStore {
     this.preparingOrderIds = this.preparingOrderIds.concat(id);
   }
 
+  // Earnings calculation based on orders with OPEN status
   get totalPendingEarnings(): number {
     return this.orders.reduce((total: number, order: Order) => {
       if (order.status !== OrderStatus.OPEN) {
         return total;
       }
 
-      if (order.taxFree) {
-        return total + order.totalPrice;
-      }
-
-      const percentageValue = getPercentageValue({
-        percentage: 21,
-        value: order.totalPrice,
-      });
-
-      return total + (order.totalPrice - percentageValue);
+      return calculateEarning(total, order);
     }, 0);
   }
 
+  // Earnings calculation based on orders with CLOSE status
   get totalConfirmedEarnings(): number {
     return this.orders.reduce((total: number, order: Order) => {
       if (order.status !== OrderStatus.CLOSE) {
         return total;
       }
 
-      if (order.taxFree) {
-        return total + order.totalPrice;
-      }
-
-      const percentageValue = getPercentageValue({
-        percentage: 21,
-        value: order.totalPrice,
-      });
-
-      return total + (order.totalPrice - percentageValue);
+      return calculateEarning(total, order);
     }, 0);
   }
 

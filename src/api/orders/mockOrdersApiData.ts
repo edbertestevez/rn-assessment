@@ -23,7 +23,7 @@ export const mockValidCloseOrder = {
       price: 1.99,
     },
   ],
-  totalPrice: 25.46,
+  totalPrice: 25.46, // earnings 20.11
   taxFree: false,
   status: OrderStatus.CLOSE,
   timestamp: '2023-09-20T12:30:45Z',
@@ -52,7 +52,7 @@ export const mockValidOpenOrder = {
       price: 6.49,
     },
   ],
-  totalPrice: 24.47,
+  totalPrice: 24.47, // earnings 24.47
   taxFree: true,
   status: OrderStatus.OPEN,
   timestamp: '2023-09-20T13:15:20Z',
@@ -70,7 +70,7 @@ export const mockInvalidOrder = {
       price: 12.99,
     },
   ],
-  totalPrice: 24.47,
+  totalPrice: 24.47, // earnings 24.47
   taxFree: true,
   status: OrderStatus.OPEN,
   timestamp: '2023-09-20T13:15:20Z',
