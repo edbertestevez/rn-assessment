@@ -30,6 +30,7 @@ export class OrderStore {
       closedOrderIds: observable,
       expiredOrderIds: observable,
       preparingOrderIds: observable,
+      clearStoredIds: action,
       getOrders: action,
       getOrderById: action,
       closeOrderById: action,
@@ -147,6 +148,12 @@ export class OrderStore {
 
       return total + (order.totalPrice - percentageValue);
     }, 0);
+  }
+
+  clearStoredIds(): void {
+    this.expiredOrderIds = [];
+    this.closedOrderIds = [];
+    this.preparingOrderIds = [];
   }
 }
 

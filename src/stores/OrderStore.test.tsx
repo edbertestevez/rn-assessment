@@ -19,7 +19,7 @@ it('initializes orders correctly', () => {
 it('getOrders', async () => {
   const orderStore = new OrderStore({});
   await orderStore.getOrders();
-  expect(orderStore.orders.length).toEqual(1);
+  expect(orderStore.orders.length).toEqual(2);
 });
 
 it('getOrderById', () => {

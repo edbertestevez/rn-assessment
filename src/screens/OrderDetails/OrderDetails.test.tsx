@@ -241,9 +241,8 @@ it('Displays prepare button if status is open', () => {
   expect(getByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON)).toBeTruthy();
 
   expect(
-    getByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL).props
-      .children,
-  ).toBe('Prepare Order');
+    getByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL),
+  ).toHaveTextContent('Prepare Order');
 });
 
 /** Hides prepare button if status is not open */

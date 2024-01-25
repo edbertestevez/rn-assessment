@@ -11,7 +11,7 @@ export const mockCustomersApiService = () => {
   // IMPORTANT: The axios instance should be mocked so all requests will not proceed on actual API
   const mock: MockAdapter = new MockAdapter(customersApi);
 
-  // getCustomers
+  // getCustomers (2 records)
   mock
     .onGet(customersApiEndpoints.getCustomers)
     .reply(200, { customers: [mockValidCustomer101, mockValidCustomer102] });

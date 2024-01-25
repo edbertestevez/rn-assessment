@@ -4,13 +4,11 @@ import { Alert, Text } from 'react-native';
 import RTNTimer from 'rtn-timer/js/NativeTimer';
 
 import OrderDetails from './OrderDetails';
+import { PREPARE_TIME_SECONDS } from '../../config';
 import { OrderDetailsStackScreenProps } from '../../navigation';
 import customerStore from '../../stores/CustomerStore';
 import orderStore from '../../stores/OrderStore';
 import { OrderStatus } from '../../types';
-
-// TODO: Transfer to a config file
-const PREPARE_TIME_SECONDS = 10;
 
 const OrderDetailsContainer = ({
   route,
@@ -25,7 +23,7 @@ const OrderDetailsContainer = ({
   const isPreparing = orderStore.preparingOrderIds.includes(orderId);
 
   const handlePrepareOrder = useCallback(async () => {
-    if (RTNTimer?.runNativeTimer) {
+    if (RTNTimer?.runNativeTimer && orderData) {
       // Add to list of orderIds being prepared
       orderStore.prepareOrderById(orderId);
 
@@ -39,16 +37,12 @@ const OrderDetailsContainer = ({
     } else {
       Alert.alert('Your request cannot be processed at the moment');
     }
-  }, [orderId, orderData?.status]);
+  }, [orderId, orderData]);
 
   const handleCloseOrder = useCallback(() => {
     setIsClosing(true);
-
-    // This is just to simulate an actual loading while processing
-    setTimeout(() => {
-      orderStore.closeOrderById(orderId);
-      setIsClosing(false);
-    }, 1000);
+    orderStore.closeOrderById(orderId);
+    setIsClosing(false);
   }, [orderId]);
 
   if (!orderData || !customerData) {
