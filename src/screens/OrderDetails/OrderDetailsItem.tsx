@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import styled from 'styled-components';
 
 import { TestIds } from '../../testUtils';
-import { OrderItem } from '../../types/Order';
+import { OrderItem } from '../../types';
 import { formatCurrency } from '../../utils/currency';
 
 interface OrderDetailsItemProp extends OrderItem {}

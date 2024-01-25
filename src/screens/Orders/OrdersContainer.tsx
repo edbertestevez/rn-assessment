@@ -2,12 +2,11 @@ import { observer } from 'mobx-react-lite';
 import React, { useCallback } from 'react';
 
 import Orders from './Orders';
-import { formatOrdersWithCustomerInfo } from '../../helpers/format.ts';
-import useAppNavigator from '../../hooks/useAppNavigator.tsx';
-import customerStore from '../../stores/CustomerStore.tsx';
-import orderStore from '../../stores/OrderStore.tsx';
-import { CustomerId } from '../../types/Customer.ts';
-import { OrderId } from '../../types/Order';
+import { formatOrdersWithCustomerInfo } from '../../helpers/format';
+import useAppNavigator from '../../hooks/useAppNavigator';
+import customerStore from '../../stores/CustomerStore';
+import orderStore from '../../stores/OrderStore';
+import { CustomerId, OrderId } from '../../types';
 
 // Note: navigation can be accessed via props from provider
 // But for this technical challenge, I'll use the custom hooks created for stage #6

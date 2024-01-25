@@ -1,5 +1,4 @@
-import { Customer } from '../types/Customer';
-import { Order, OrderWithCustomerInfo } from '../types/Order';
+import { Customer, Order, OrderWithCustomerInfo } from '../types';
 
 export const formatOrdersWithCustomerInfo = (
   orders: Order[] = [],

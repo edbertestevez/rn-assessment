@@ -3,15 +3,21 @@ import {
   mockCustomers,
   mockValidCustomer101,
   mockValidCustomer102,
-} from '../testUtils';
+} from '../api/customers';
+
+/**
+ * API Calls are mocked in testUtils/testingLibraryUtils.tsx
+ */
 
 it('initializes orders correctly', () => {
   const customerStore = new CustomerStore({ initCustomers: mockCustomers });
   expect(customerStore.customers).toHaveLength(4);
 });
 
-it('getCustomers', () => {
-  // TODO: Mock getCustomers api calls
+it('getCustomers', async () => {
+  const customerStore = new CustomerStore({});
+  await customerStore.getCustomers();
+  expect(customerStore.customers.length).toEqual(2);
 });
 
 it('getCustomerById', () => {

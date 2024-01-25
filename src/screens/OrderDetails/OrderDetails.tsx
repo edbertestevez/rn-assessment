@@ -6,8 +6,7 @@ import styled from 'styled-components';
 import OrderDetailsItem from './OrderDetailsItem';
 import ScreenView from '../../components/ScreenView';
 import { TestIds } from '../../testUtils';
-import { Customer } from '../../types/Customer';
-import { Order } from '../../types/Order';
+import { Customer, Order } from '../../types';
 import { formatCurrency } from '../../utils/currency';
 
 interface OrderDetailsProps {

@@ -8,8 +8,8 @@ import {
 } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 
-import { OrdersAPI } from '../services/api/orders';
-import { Order, OrderId, OrderStatus } from '../types/Order';
+import { OrdersAPIService } from '../api/orders';
+import { Order, OrderId, OrderStatus } from '../types';
 import { getPercentageValue } from '../utils';
 
 interface OrderStoreConstructor {
@@ -53,7 +53,7 @@ export class OrderStore {
 
   async getOrders() {
     try {
-      const data = await OrdersAPI.getOrders();
+      const data = await OrdersAPIService.getOrders();
 
       runInAction(() => {
         // Validate with AsyncStorage if orderId is part of closed orders, then set to Close

@@ -2,9 +2,13 @@ import React, { useCallback, useMemo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 
-import TestIds from '../../testUtils/testIds';
-import { CustomerId } from '../../types/Customer';
-import { OrderId, OrderStatus, OrderWithCustomerInfo } from '../../types/Order';
+import { TestIds } from '../../testUtils';
+import {
+  OrderId,
+  OrderStatus,
+  OrderWithCustomerInfo,
+  CustomerId,
+} from '../../types';
 
 interface OrderItemProps {
   item: OrderWithCustomerInfo;

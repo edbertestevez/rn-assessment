@@ -4,16 +4,22 @@ import {
   mockOrders,
   mockValidCloseOrder,
   mockValidOpenOrder,
-} from '../testUtils';
-import { OrderStatus } from '../types/Order';
+} from '../api/orders';
+import { OrderStatus } from '../types';
+
+/**
+ * API Calls are mocked in testUtils/testingLibraryUtils.tsx
+ */
 
 it('initializes orders correctly', () => {
   const orderStore = new OrderStore({ initOrders: mockOrders });
   expect(orderStore.orders).toHaveLength(3);
 });
 
-it('getOrders', () => {
-  // TODO: Mock getOrders api calls
+it('getOrders', async () => {
+  const orderStore = new OrderStore({});
+  await orderStore.getOrders();
+  expect(orderStore.orders.length).toEqual(1);
 });
 
 it('getOrderById', () => {

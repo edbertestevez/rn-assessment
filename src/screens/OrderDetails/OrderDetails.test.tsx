@@ -5,18 +5,15 @@ import React from 'react';
 import { ReactTestInstance } from 'react-test-renderer';
 
 import OrderDetails from './OrderDetails';
-import { OrderStore } from '../../stores/OrderStore.tsx';
+import { mockValidCustomer101 } from '../../api/customers';
 import {
   mockOrders,
   mockValidCloseOrder,
-  mockValidCustomer101,
   mockValidOpenOrder,
-  render,
-  cleanup,
-  fireEvent,
-  TestIds,
-} from '../../testUtils';
-import { Order, OrderStatus } from '../../types/Order';
+} from '../../api/orders/mockOrdersApiData';
+import { OrderStore } from '../../stores/OrderStore';
+import { render, cleanup, fireEvent, TestIds } from '../../testUtils';
+import { Order, OrderStatus } from '../../types';
 
 // Cleanup after each test
 afterEach(cleanup);
@@ -244,8 +241,9 @@ it('Displays prepare button if status is open', () => {
   expect(getByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON)).toBeTruthy();
 
   expect(
-    getByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL),
-  ).toHaveTextContent('Prepare Order');
+    getByTestId(TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL).props
+      .children,
+  ).toBe('Prepare Order');
 });
 
 /** Hides prepare button if status is not open */

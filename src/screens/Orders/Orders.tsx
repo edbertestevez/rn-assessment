@@ -4,8 +4,7 @@ import styled from 'styled-components';
 
 import OrderItem from './OrderItem';
 import ScreenView from '../../components/ScreenView';
-import { CustomerId } from '../../types/Customer';
-import { OrderId, OrderWithCustomerInfo } from '../../types/Order';
+import { OrderId, OrderWithCustomerInfo, CustomerId } from '../../types';
 import { formatCurrency } from '../../utils';
 
 interface OrdersProps {

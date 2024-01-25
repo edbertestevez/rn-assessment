@@ -5,9 +5,9 @@ import RTNTimer from 'rtn-timer/js/NativeTimer';
 
 import OrderDetails from './OrderDetails';
 import { OrderDetailsStackScreenProps } from '../../navigation';
-import customerStore from '../../stores/CustomerStore.tsx';
-import orderStore from '../../stores/OrderStore.tsx';
-import { OrderStatus } from '../../types/Order.ts';
+import customerStore from '../../stores/CustomerStore';
+import orderStore from '../../stores/OrderStore';
+import { OrderStatus } from '../../types';
 
 // TODO: Transfer to a config file
 const PREPARE_TIME_SECONDS = 10;

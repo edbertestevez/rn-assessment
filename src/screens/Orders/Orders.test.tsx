@@ -1,15 +1,10 @@
 import React from 'react';
 
 import Orders from './Orders';
+import { mockCustomers } from '../../api/customers';
+import { mockOrders } from '../../api/orders';
 import { formatOrdersWithCustomerInfo } from '../../helpers/format';
-import {
-  render,
-  cleanup,
-  fireEvent,
-  mockCustomers,
-  mockOrders,
-  TestIds,
-} from '../../testUtils';
+import { render, cleanup, fireEvent, TestIds } from '../../testUtils';
 
 const mockList = formatOrdersWithCustomerInfo(mockOrders, mockCustomers);
 

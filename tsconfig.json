@@ -1,4 +1,14 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
-  "include": ["**/*.ts", "**/*.tsx"],
+  "compilerOptions": {
+    "module": "esnext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+  },
+  "extensions": [".tsx", ".ts", ".js", ".jsx"],
 }

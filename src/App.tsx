@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import { NavigationWrapper } from './navigation';
 import customerStore from './stores/CustomerStore';
-import orderStore from './stores/OrderStore.tsx';
+import orderStore from './stores/OrderStore';
 import { appTheme } from './theme';
 
 const init = async () => {

@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { observable, action, makeObservable, runInAction } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 
-import { OrdersAPI } from '../services/api/orders';
-import { Customer, CustomerId } from '../types/Customer';
+import { CustomersAPIService } from '../api/customers';
+import { Customer, CustomerId } from '../types';
 
 interface CustomerStoreConstructor {
   initCustomers?: Customer[];
@@ -37,7 +37,7 @@ export class CustomerStore {
 
   async getCustomers() {
     try {
-      const data = await OrdersAPI.getCustomers();
+      const data = await CustomersAPIService.getCustomers();
 
       runInAction(() => {
         this.customers = data;
