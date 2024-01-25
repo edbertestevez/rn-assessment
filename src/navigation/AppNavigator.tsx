@@ -20,7 +20,7 @@ const AppNavigator = (): React.JSX.Element => {
       <Stack.Screen
         name={Routes.ORDER_DETAILS}
         component={OrderDetailsContainer}
-        options={{ title: 'Order Details' }}
+        options={{ title: 'Order Details', headerBackTitleVisible: false }}
       />
     </Stack.Navigator>
   );
