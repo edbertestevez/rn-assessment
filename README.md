@@ -64,9 +64,10 @@ State Management & Storage
 - [@react-native-async-storage/async-storage](https://react-native-async-storage.github.io/async-storage/docs/install/)
 
 Testing
-- [jest](https://jestjs.io/)
+- [jest](https://jestjs.io/) - unit and integration testing
 - [axios-mock-adapter](https://github.com/ctimmerm/axios-mock-adapter) - for API mocking
 - [@testing-library](https://testing-library.com/docs/react-native-testing-library/intro/)
+- [detox](https://wix.github.io/Detox/docs/introduction/project-setup/#step-1-bootstrap) - e2e testing
  
  Styling
  - [styled-components](https://styled-components.com/)
@@ -258,6 +259,15 @@ Please refer to the [Official Docs](https://reactnative.dev/docs/the-new-archite
 7. UNIT Testing --> JEST
 8. INTEGRATION Testing --> JEST
 9. END-TO-END Testing --> DETOX (ONGOING)
+
+# DEMO
+### ANDROID
+https://github.com/edbertestevez/rn-assessment/assets/33598612/9bd16a95-0114-4665-aa70-1abc5895288d
+
+### IOS
+https://github.com/edbertestevez/rn-assessment/assets/33598612/53cda988-3b1c-422a-ad0b-13850fbfed5b
+
+
 
 # OTHERS
 ### Stage 7
