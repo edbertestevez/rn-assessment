@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useCallback } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 
 import Orders from './Orders';
 import { formatOrdersWithCustomerInfo } from '../../helpers/format';
@@ -19,6 +20,13 @@ const OrdersContainer = (): React.JSX.Element => {
     [navigateToOrderDetails],
   );
 
+  const handleReset = useCallback(() => {
+    if (__DEV__) {
+      orderStore.clearStoredIds();
+      orderStore.getOrders();
+    }
+  }, []);
+
   const ordersList = formatOrdersWithCustomerInfo(
     orderStore.orders,
     customerStore.customers,
@@ -29,12 +37,20 @@ const OrdersContainer = (): React.JSX.Element => {
   const totalConfirmedEarnings = orderStore.totalConfirmedEarnings;
 
   return (
-    <Orders
-      list={ordersList}
-      handleItemPress={handleItemPress}
-      totalPendingEarnings={totalPendingEarnings}
-      totalConfirmedEarnings={totalConfirmedEarnings}
-    />
+    <>
+      {__DEV__ && (
+        <TouchableOpacity onPress={handleReset}>
+          <Text>Reset</Text>
+        </TouchableOpacity>
+      )}
+
+      <Orders
+        list={ordersList}
+        handleItemPress={handleItemPress}
+        totalPendingEarnings={totalPendingEarnings}
+        totalConfirmedEarnings={totalConfirmedEarnings}
+      />
+    </>
   );
 };
 
