@@ -1,1 +1,2 @@
 export const PREPARE_TIME_SECONDS = 10;
+export const TAX_DEDUCTION_PERCENTAGE = 21;

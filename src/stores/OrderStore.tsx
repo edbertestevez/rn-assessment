@@ -9,6 +9,7 @@ import {
 import { makePersistable } from 'mobx-persist-store';
 
 import { OrdersAPIService } from '../api/orders';
+import { TAX_DEDUCTION_PERCENTAGE } from '../config';
 import { getPercentageValue } from '../helpers';
 import { Order, OrderId, OrderStatus } from '../types';
 
@@ -23,7 +24,7 @@ const calculateEarning = (total: number, order: Order) => {
   }
 
   const percentageValue = getPercentageValue({
-    percentage: 21,
+    percentage: TAX_DEDUCTION_PERCENTAGE,
     value: order.totalPrice,
   });
 
