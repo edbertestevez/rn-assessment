@@ -295,3 +295,16 @@ https://github.com/edbertestevez/rn-assessment/assets/33598612/53cda988-3b1c-422
 >Develop a testing strategy to achieve the higher test coverage possible. Also, report the test coverage achieved.
 
 Please see "Testing" section of this document
+
+
+### Current test coverage (01/26/24)
+<img width="554" alt="test-coverage" src="https://github.com/edbertestevez/rn-assessment/assets/33598612/76b45d4c-9c92-4912-a040-1f04b0123a94">
+
+-------
+
+### **NOTE:**
+- End-to-End test using Detox is still pending. Still resolving setup but only 1 test file will be added once resolved.
+  	- No additional files or file structure change. So it can be reviewed already :)
+  	- Will push the end-to-end test file soon, once done
+ 
+Thank you!
