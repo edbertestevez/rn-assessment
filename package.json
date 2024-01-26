@@ -11,7 +11,7 @@
     "start": "react-native start",
     "test": "jest",
     "prepare": "husky install",
-    "pre-commit": "yarn lint && yarn format"
+    "pre-commit": "yarn lint && yarn format && yarn test"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.21.0",
