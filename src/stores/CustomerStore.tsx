@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { observable, action, makeObservable, runInAction } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
+import { Alert } from 'react-native';
 
 import { CustomersAPIService } from '../api/customers';
 import { Customer, CustomerId } from '../types';
@@ -43,6 +44,7 @@ export class CustomerStore {
         this.customers = data;
       });
     } catch (err) {
+      Alert.alert('Error fetching customers');
       console.error('Error fetching customers: ', err);
     }
   }

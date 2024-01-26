@@ -7,6 +7,7 @@ import {
   computed,
 } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
+import { Alert } from 'react-native';
 
 import { OrdersAPIService } from '../api/orders';
 import { TAX_DEDUCTION_PERCENTAGE } from '../config';
@@ -83,6 +84,7 @@ export class OrderStore {
         }));
       });
     } catch (err) {
+      Alert.alert('Error fetching orders');
       console.error('Error fetching orders: ', err);
     }
   }

@@ -1,9 +1,14 @@
+import MockAdapter from 'axios-mock-adapter';
+import { Alert } from 'react-native';
+
 import { OrderStore } from './OrderStore';
 import {
   mockInvalidOrder,
   mockOrders,
   mockValidCloseOrder,
   mockValidOpenOrder,
+  ordersApi,
+  ordersApiEndpoints,
 } from '../api/orders';
 import { OrderStatus } from '../types';
 
@@ -22,13 +27,37 @@ it('getOrders', async () => {
   expect(orderStore.orders.length).toEqual(2);
 });
 
+it('getOrders error alert', async () => {
+  // Custom adapter for getOrders
+  const mockIntercept = new MockAdapter(ordersApi);
+  mockIntercept.onGet(ordersApiEndpoints.getOrders).reply(500);
+
+  // Spy on Alert function
+  jest.spyOn(Alert, 'alert');
+
+  // Proceed with request
+  const orderStore = new OrderStore({});
+  await orderStore.getOrders();
+
+  // Alert message should be displayed
+  expect(Alert.alert).toHaveBeenCalledWith('Error fetching orders');
+
+  // No orders in store
+  expect(orderStore.orders.length).toEqual(0);
+});
+
 it('getOrderById', () => {
   const orderStore = new OrderStore({
     initOrders: [mockValidCloseOrder, mockValidOpenOrder],
   });
-  const order = orderStore.getOrderById(mockValidCloseOrder.orderId);
 
+  // Valid
+  const order = orderStore.getOrderById(mockValidCloseOrder.orderId);
   expect(order).toEqual(mockValidCloseOrder);
+
+  // Invalid
+  const invalidOrder = orderStore.getOrderById(930219039120);
+  expect(invalidOrder).toEqual(undefined);
 });
 
 it('closeOrderById', async () => {

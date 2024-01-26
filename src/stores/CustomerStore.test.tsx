@@ -1,5 +1,10 @@
+import MockAdapter from 'axios-mock-adapter';
+import { Alert } from 'react-native';
+
 import { CustomerStore } from './CustomerStore';
 import {
+  customersApi,
+  customersApiEndpoints,
   mockCustomers,
   mockValidCustomer101,
   mockValidCustomer102,
@@ -18,6 +23,25 @@ it('getCustomers', async () => {
   const customerStore = new CustomerStore({});
   await customerStore.getCustomers();
   expect(customerStore.customers.length).toEqual(2);
+});
+
+it('getCustomers error alert', async () => {
+  // Custom adapter for getOrders
+  const mockIntercept = new MockAdapter(customersApi);
+  mockIntercept.onGet(customersApiEndpoints.getCustomers).reply(500);
+
+  // Spy on alert
+  jest.spyOn(Alert, 'alert');
+
+  // Proceed with request
+  const customerStore = new CustomerStore({});
+  await customerStore.getCustomers();
+
+  // Alert message should be displayed
+  expect(Alert.alert).toHaveBeenCalledWith('Error fetching customers');
+
+  // No customer in store
+  expect(customerStore.customers.length).toEqual(0);
 });
 
 it('getCustomerById', () => {
