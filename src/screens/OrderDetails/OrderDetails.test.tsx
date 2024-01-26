@@ -100,9 +100,8 @@ it('Displays correct information on valid order', () => {
   expect(getItemPriceByIndex(orderDetailsItems, 2)).toEqual('$1.99');
 
   /** Displays correct total price **/
-  // TODO: Revisit cause total price response from the API is incorrect
   expect(getByTestId(TestIds.ORDER_DETAILS_TOTAL_PRICE).props.children).toEqual(
-    '$25.46',
+    '$27.45',
   );
 
   // Displays correct Tax Free label

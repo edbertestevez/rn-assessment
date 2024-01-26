@@ -12,10 +12,10 @@ it('Displays correct default confirmed and pending earnings', async () => {
   const { getByTestId } = render(<OrdersContainer />);
 
   expect(getByTestId(TestIds.ORDERS_CONFIRMED_EARNINGS)).toHaveTextContent(
-    '$20.11',
+    '$21.69',
   );
 
   expect(getByTestId(TestIds.ORDERS_PENDING_EARNINGS)).toHaveTextContent(
-    '$48.94',
+    '$37.46',
   );
 });

@@ -13,7 +13,7 @@ describe('formatOrdersWithCustomerInfo test cases', () => {
           price: 9.99,
         },
       ],
-      totalPrice: 25.46,
+      totalPrice: 19.98,
       taxFree: false,
       status: OrderStatus.CLOSE,
       timestamp: '2023-09-20T12:30:45Z',
