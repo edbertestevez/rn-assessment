@@ -258,7 +258,7 @@ Please refer to the [Official Docs](https://reactnative.dev/docs/the-new-archite
 ### Tools Used
 7. UNIT Testing --> JEST
 8. INTEGRATION Testing --> JEST
-9. END-TO-END Testing --> DETOX (ONGOING)
+9. END-TO-END Testing --> DETOX
 
 # DEMO
 ### ANDROID
@@ -302,9 +302,29 @@ Please see "Testing" section of this document
 
 -------
 
-### **NOTE:**
-- End-to-End test using Detox is still pending. Still resolving setup but only 1 test file will be added once resolved.
-  	- No additional files or file structure change. So it can be reviewed already :)
-  	- Will push the end-to-end test file soon, once done
- 
+### **NOTE (e2e Testing):**
+1. End-to-End test using Detox currently works with iOS only. 
+- There's an existing issues with Android builds for v0.73 with 'react-native-gesture-handler' during builds
+```
+Execution failed for task ':react-native-gesture-handler:mergeDebugAndroidTestNativeLibs'.
+> A failure occurred while executing com.android.build.gradle.internal.tasks.MergeNativeLibsTask$MergeNativeLibsTaskWorkAction
+   > 2 files found with path 'lib/arm64-v8a/libc++_shared.so' from inputs:
+```
+- I tried to resolve by patching the library but another error occured in the gradle level
+```
+2 files found with path 'META-INF in gradle file........
+```
+
+#### Detox e2e related changes can be found in this branch:
+https://github.com/edbertestevez/rn-assessment/tree/feat/detox-e2e-testing-ios-only
+- UI in this branch is different (moved "close order" button besides "prepare order" button) due to unknown issue in Detox where it can't match the type of "ScrollView" in React Native (`...... is not an instance of “UIScrollView”`)
+- Probably an issue with new architecture and RN v0.73
+- Currently it's not possible to simulate scrolling and swipe due to this issue
+
+#### E2E Demo
+
+https://github.com/edbertestevez/rn-assessment/assets/33598612/627f4a94-1ffa-4b9a-992c-492d3f77772d
+
+
+
 Thank you!
