@@ -5,13 +5,17 @@ import Routes from './routes';
 import { StackParamList } from './types';
 import OrderDetailsContainer from '../screens/OrderDetails/OrderDetailsContainer';
 import OrdersContainer from '../screens/Orders/OrdersContainer';
+import { TestIds } from '../testUtils';
 
 // Main Stack navigation
 const Stack = createStackNavigator<StackParamList>();
 
 const AppNavigator = (): React.JSX.Element => {
   return (
-    <Stack.Navigator initialRouteName={Routes.ORDERS}>
+    <Stack.Navigator
+      initialRouteName={Routes.ORDERS}
+      screenOptions={{ headerBackTestID: TestIds.NAVIGATION_BACK }}
+    >
       <Stack.Screen
         name={Routes.ORDERS}
         component={OrdersContainer}

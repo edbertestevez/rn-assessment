@@ -8,12 +8,13 @@ buildscript {
         compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "25.1.8937393"
-        kotlinVersion = "1.8.0"
+        kotlinVersion = "1.9.10"
     }
     repositories {
         google()
         mavenCentral()
     }
+
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
@@ -22,9 +23,15 @@ buildscript {
 }
 
 allprojects {
+    repositories {
+        maven {
+            url("$rootDir/../node_modules/detox/Detox-android")
+        }
+    }
     configurations.all {
           resolutionStrategy {
             force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION
+            force 'androidx.test:core:1.5.0'
           }
     }
     // ...  

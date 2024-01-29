@@ -1,4 +1,5 @@
 export enum TestIds {
+  NAVIGATION_BACK = 'navigationBack',
   ORDER_ITEMS = 'orderItems',
   ORDERS_CONFIRMED_EARNINGS = 'ordersConfirmedEarnings',
   ORDERS_PENDING_EARNINGS = 'ordersPendingEarnings',
@@ -8,6 +9,7 @@ export enum TestIds {
   CUSTOMER_EMAIL = 'customerEmail',
   CUSTOMER_PHONE = 'customerPhone',
   ORDER_DETAILS_HEADER = 'orderDetailsHeader',
+  ORDER_DETAILS_STATUS = 'orderDetailsStatus',
   ORDER_DETAILS_ITEMS = 'orderDetailsItems',
   ORDER_DETAILS_TOTAL_PRICE = 'orderDetailsTotalPrice',
   ORDER_DETAILS_TAX_FREE = 'orderDetailsTaxFree',

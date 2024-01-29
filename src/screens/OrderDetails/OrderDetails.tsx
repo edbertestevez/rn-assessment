@@ -34,22 +34,42 @@ const OrderDetails = ({
         <View>
           <HeaderCard isOpen={isOpen} testID={TestIds.ORDER_DETAILS_HEADER}>
             <View>
-              <Label isBold isLabelInverted>{`Order ID: ${orderId}`}</Label>
-              <Label isLabelInverted>{`Status: ${status.toUpperCase()}`}</Label>
+              <Label
+                isBold
+                isLabelInverted
+                center
+              >{`Order ID: ${orderId}`}</Label>
+              <Label
+                center
+                isLabelInverted
+                testID={TestIds.ORDER_DETAILS_STATUS}
+              >{`Status: ${status.toUpperCase()}`}</Label>
             </View>
 
             {isOpen && (
-              <PrepareOrderButton
-                testID={TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON}
-                disabled={isPreparing}
-                activeOpacity={0.6}
-                onPress={onPrepareOrder}
-              >
-                <Label
-                  testID={TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL}
-                  isLabelInverted
-                >{`${isPreparing ? 'Preparing...' : 'Prepare Order'}`}</Label>
-              </PrepareOrderButton>
+              <Row>
+                <PrepareOrderButton
+                  testID={TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON}
+                  disabled={isPreparing}
+                  activeOpacity={0.6}
+                  onPress={onPrepareOrder}
+                >
+                  <Label
+                    testID={TestIds.ORDER_DETAILS_PREPARE_ORDER_BUTTON_LABEL}
+                    isLabelInverted
+                  >{`${isPreparing ? 'Preparing...' : 'Prepare Order'}`}</Label>
+                </PrepareOrderButton>
+
+                <CloseOrderButton
+                  onPress={onCloseOrder}
+                  activeOpacity={0.6}
+                  testID={TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON}
+                >
+                  <Label isLabelInverted>
+                    {isClosing ? 'Processing. . .' : 'Close Order'}
+                  </Label>
+                </CloseOrderButton>
+              </Row>
             )}
           </HeaderCard>
 
@@ -88,18 +108,6 @@ const OrderDetails = ({
             >{`Timestamp: ${timestamp}`}</Label>
           </Card>
         </View>
-
-        {isOpen && (
-          <CloseOrderButton
-            onPress={onCloseOrder}
-            activeOpacity={0.6}
-            testID={TestIds.ORDER_DETAILS_CLOSE_ORDER_BUTTON}
-          >
-            <Label isBold isLabelInverted>
-              {isClosing ? 'Processing. . .' : 'Close Order'}
-            </Label>
-          </CloseOrderButton>
-        )}
       </Body>
     </ScreenView>
   );
@@ -117,18 +125,24 @@ const Card = styled(View)`
 
 const HeaderCard = styled(Card)<{ isOpen: boolean }>`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   background-color: ${({ theme, isOpen }) =>
     isOpen ? theme.color.primary : theme.color.secondary};
-  gap: 12px;
+  gap: 16px;
 `;
 
-const Label = styled(Text)<{ isBold?: boolean; isLabelInverted?: boolean }>`
+const Label = styled(Text)<{
+  isBold?: boolean;
+  isLabelInverted?: boolean;
+  center?: boolean;
+}>`
   font-size: ${({ theme }) => theme.fontSize.medium};
   font-weight: ${({ isBold }) => (isBold ? 'bold' : 'normal')};
   color: ${({ theme, isLabelInverted }) =>
     isLabelInverted ? theme.color.labelInvert : theme.color.label};
+  text-align: ${({ center }) => (center ? 'center' : 'left')};
 `;
 
 const TotalCard = styled(Card)`
@@ -143,20 +157,22 @@ const Total = styled(Text)`
   color: ${({ theme }) => theme.color.primary};
 `;
 
-const CloseOrderButton = styled(TouchableOpacity)`
-  background-color: ${({ theme }) => theme.color.secondary};
-  margin: 16px 24px;
-  height: 54px;
-  align-items: center;
-  justify-content: center;
-`;
-
-const PrepareOrderButton = styled(TouchableOpacity)<{ disabled: boolean }>`
+const PrepareOrderButton = styled(TouchableOpacity)<{ disabled?: boolean }>`
   background-color: ${({ theme, disabled }) =>
     disabled ? 'transparent' : theme.color.secondary};
   height: 40px;
   padding: 0px 16px;
   align-items: center;
+  justify-content: center;
+`;
+
+const CloseOrderButton = styled(PrepareOrderButton)`
+  background-color: ${({ disabled }) => (disabled ? 'transparent' : '#ab0505')};
+`;
+
+const Row = styled(View)`
+  flex-direction: row;
+  gap: 16px;
   justify-content: center;
 `;
 
