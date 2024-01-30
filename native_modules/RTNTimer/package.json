@@ -8,6 +8,7 @@
     "js",
     "android",
     "ios",
+    "generated",
     "rtn-timer.podspec",
     "!android/build",
     "!ios/build",
